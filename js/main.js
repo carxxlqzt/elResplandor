@@ -5,7 +5,7 @@ canvas.width =1000
 canvas.height = 487
 // En lugar de pintar un rectangulo rosa, seteo el background del canvas con el color
 // para consumir menos recursos.
-canvas.style.backgroundImage= 'url("img/piso2.jpg")'
+// canvas.style.background= 'brown'
 
 let anchoPared= 95
 let altoPared=95
@@ -36,7 +36,7 @@ class Hero {
         // Propiedades.
         this.src = girl;
         this.frame = 0;
-        this.x = 800;
+        this.x = 900;
         this.y = 10;
         this.width = 64;
         this.height = 64;
@@ -74,6 +74,7 @@ class Hero {
     }
 }
 // Genero un array vacío y voy pusheando paredes nuevas.
+let bordesPantalla=[]
 let paredes = []
 paredes.push(new Rectangulo(0, altoPared, anchoPared,grosorPared, "#b3a659"))
 paredes.push(new Rectangulo(anchoPared, altoPared, grosorPared, altoPared))
@@ -113,55 +114,109 @@ paredes.push(new Rectangulo(canvas.width-5,0,grosorPared,altoPared*2))
 paredes.push(new Rectangulo(0,canvas.height-5,canvas.width,grosorPared))
 paredes.push(new Rectangulo(0,0,grosorPared,canvas.height))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Instancio al héroe.
 let heroe = new Hero();
-let xPasillo=canvas.width+5
+let anchoP=canvas.width+10
+let xPasillo=canvas.width+20
 
+let condition=false
+let aux=0
+let aux2=0
 function dibujoCanvas() {
     // En cada ciclo: borro todo el canvas, dibujo al héroe, aumento el frame para animarlo y evito que pase del sexto,
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+   ctx.fillStyle="#53290b"
+    ctx.fillRect(0,0,canvas.width,canvas.height)
+    // ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.fillStyle="#a70e06"
-    ctx.font="50px Amatic SC"
-    ctx.fillText("REDRUM",380,250 )
+    ctx.font="50px Amatic SC" 
+    
+    ctx.fillText("REDRUM",380,250 ) 
+   
+    ctx.fillStyle="white"
+    ctx.font="26px Amatic SC"
+  ctx.fillText("RUN RUN!! --> (acá podriamos poner fantasmitas que quieran atrapar al niño) ",xPasillo,100)
+    ctx.fillStyle="red"
+    ctx.fillRect(xPasillo,180,anchoP,200)
+    
+   
     heroe.draw()
     heroe.frame++
     heroe.frame >= 6 ? heroe.frame = 0 : null;
-    // ctx.drawImage(pasillo,0,0,254,258,xPasillo,0,canvas.width,canvas.height)
+    
     
     // luego por cada pared del array, la dibujo y le pregunto al héroe si la chocó.
     paredes.forEach(pared => {
         pared.dibujar()
         heroe.checkCollision(pared)
-    //    if(heroe.x+heroe.width>canvas.width){
-    //     pared.x=pared.x -1
-        
-        
-    // } 
+  
     })
+    
+    
+ if(heroe.x+heroe.width>canvas.width){
+                    aux=aux+1
+                                }  
+if(aux==1){
+ xPasillo=0;
+  paredes=[]
+ heroe.x=10
+ aux++
+}
+if(heroe.x+heroe.width>xPasillo+anchoP){
+    xPasillo=-canvas.width-20
+    aux2++
+}
+if(aux2==1){
+    heroe.x=10
+    aux2++
+    
+}
+if(aux2>1){
+    paredes.push(new Rectangulo(0, altoPared, anchoPared,grosorPared, "#b3a659"))
+paredes.push(new Rectangulo(anchoPared, altoPared, grosorPared, altoPared))
+paredes.push(new Rectangulo(anchoPared*2,0,grosorPared,altoPared*2))
+
+paredes.push(new Rectangulo(anchoPared,altoPared*4,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared,altoPared*3,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared,altoPared*3,anchoPared*2,grosorPared))
+paredes.push(new Rectangulo(anchoPared*3,altoPared,grosorPared,altoPared*2))
+paredes.push(new Rectangulo(anchoPared*3,altoPared,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*4,altoPared,grosorPared,altoPared))
+
+paredes.push(new Rectangulo(anchoPared*3,altoPared*4,anchoPared*2,grosorPared))
+paredes.push(new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared*2))
+
+
+paredes.push(new Rectangulo(anchoPared*5,0,grosorPared,altoPared))
+
+paredes.push(new Rectangulo(anchoPared*5,0,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*5,altoPared,anchoPared*2,grosorPared))
+paredes.push(new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*6,altoPared,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*7,altoPared,grosorPared,altoPared))
+
+paredes.push(new Rectangulo(anchoPared*6,altoPared*4,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*6,altoPared*3,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*6,altoPared*3,anchoPared*2,grosorPared))
+paredes.push(new Rectangulo(anchoPared*8,0,grosorPared,altoPared*3))
+
+paredes.push(new Rectangulo(anchoPared*9,0,grosorPared,altoPared*2))
+
+paredes.push(new Rectangulo(anchoPared*9,altoPared*3,grosorPared,altoPared*3))
+paredes.push(new Rectangulo(anchoPared*9,altoPared*3,anchoPared,grosorPared))
+// Bordes de la pantalla
+paredes.push(new Rectangulo(0,0,canvas.width,grosorPared))
+paredes.push(new Rectangulo(canvas.width-5,0,grosorPared,altoPared*2))
+paredes.push(new Rectangulo(0,canvas.height-5,canvas.width,grosorPared))
+paredes.push(new Rectangulo(0,0,grosorPared,canvas.height))
+ctx.fillStyle="white"
+ctx.font="30px Amatic SC"
+  ctx.fillText("Este sería el segundo nivel ",10,50)
+}
+
 
 }
 // Reitero la función "dibujoCanvas" 8 veces por segundo.
 setInterval(dibujoCanvas, 1000 / 50)
-let cond=false
 
  
 // En todo el documento escucho los eventos de teclado.
@@ -188,6 +243,7 @@ document.addEventListener("keydown", (e) => {
                 heroe.y += 15;
                 heroe.collide = false;
             }
+            
             break;
 
         // Abajo
@@ -226,25 +282,9 @@ document.addEventListener("keydown", (e) => {
                 heroe.x -= 15;
                 heroe.collide = false;
             }
-           
-                if(heroe.x+heroe.width>canvas.width){
-                       cond=true
-                                }
-            paredes.forEach(e=>{
-
-            if(cond){
-
-                e.x=e.x-5
-                heroe.x=paredes[paredes.length-3].x
-                // xPasillo=paredes[paredes.length-3].x
-                if(heroe.x<-10){
-                    cond=false
-                    heroe.x+=20
-
-                   
-                }
-                
-            }})
+            
+              
+    
             break;
 
         default:
