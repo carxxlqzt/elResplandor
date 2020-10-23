@@ -122,6 +122,8 @@ let xPasillo=canvas.width+20
 let condition=false
 let aux=0
 let aux2=0
+let aux3=0
+let xCuadradoBlanco=((canvas.width*3)-100)
 function dibujoCanvas() {
     // En cada ciclo: borro todo el canvas, dibujo al héroe, aumento el frame para animarlo y evito que pase del sexto,
    ctx.fillStyle="#53290b"
@@ -138,6 +140,7 @@ function dibujoCanvas() {
     ctx.fillStyle="red"
     ctx.fillRect(xPasillo,180,anchoP,200)
     
+ctx.fillRect(xCuadradoBlanco,200,100,100)
    
     heroe.draw()
     heroe.frame++
@@ -167,6 +170,8 @@ if(heroe.x+heroe.width>xPasillo+anchoP){
 }
 if(aux2==1){
     heroe.x=10
+  xCuadradoBlanco=canvas.width-100
+
     aux2++
     
 }
@@ -210,7 +215,25 @@ paredes.push(new Rectangulo(0,canvas.height-5,canvas.width,grosorPared))
 paredes.push(new Rectangulo(0,0,grosorPared,canvas.height))
 ctx.fillStyle="white"
 ctx.font="30px Amatic SC"
-  ctx.fillText("Este sería el segundo nivel ",10,50)
+  ctx.fillText("Este sería el segundo nivel ",xCuadradoBlanco-300,50)
+if(heroe.x+heroe.width>xCuadradoBlanco+90){
+ 
+
+    aux3++
+}
+if(aux3==1){
+    heroe.x=10
+    
+    
+    aux3++
+     
+}}
+if(aux3>1){
+    ctx.fillStyle="white"
+  ctx.fillText("Este sería el siguiente nivel ",10,50)
+
+    paredes=[]
+    xCuadradoBlanco=-500
 }
 
 
