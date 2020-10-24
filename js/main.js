@@ -5,8 +5,8 @@ canvas.width =1000
 canvas.height = 487
 // En lugar de pintar un rectangulo rosa, seteo el background del canvas con el color
 // para consumir menos recursos.
-// canvas.style.background= 'brown'
 
+//Medidas de las paredes
 let anchoPared= 95
 let altoPared=95
 let grosorPared=5
@@ -24,27 +24,31 @@ function Rectangulo(positionX, positionY, ancho, alto, color) {
         ctx.fillRect(this.x, this.y, this.width, this.height)
     }
 }
-
-let girl = new Image()
-girl.src = "img/nn-run.png"
+// Llamar a la imagen del personaje
+let dani = new Image()
+dani.src = "img/daniel.png"
 // let pasillo=new Image()
 // pasillo.src="img/pieza.png"
 
 // Convertí al héroe en una clase para poder darle métodos.
 class Hero {
-    constructor() {
+    constructor(personaje,widthImage,heightImage) {
         // Propiedades.
-        this.src = girl;
-        this.frame = 0;
+        this.src = personaje;
+        this.frameX = 0;
+        this.frameY=0
         this.x = 900;
         this.y = 10;
         this.width = 64;
         this.height = 64;
         this.collide = false;
+        this.widthImage=widthImage
+        this.heightImage=heightImage
+
 
         // Métodos.
         this.draw = function(){
-            ctx.drawImage(this.src, this.frame * 142, 0, 142, 198, this.x, this.y, this.width, this.height)
+            ctx.drawImage(this.src, this.frameX * this.widthImage, this.frameY*this.heightImage, this.widthImage, this.heightImage, this.x, this.y, this.width, this.height)
         }
         this.checkCollision = function (wall) {
             // Defino los bordes del héroe.
@@ -115,7 +119,7 @@ paredes.push(new Rectangulo(0,canvas.height-5,canvas.width,grosorPared))
 paredes.push(new Rectangulo(0,0,grosorPared,canvas.height))
 
 // Instancio al héroe.
-let heroe = new Hero();
+let heroe = new Hero(dani,120,190);
 let colorDeFondo="#53290b"
 let anchoP=canvas.width+10
 let xPasillo=canvas.width+20
@@ -124,7 +128,7 @@ let condition=false
 let aux=0
 let aux2=0
 let aux3=0
-let xCuadradoBlanco=((canvas.width*3)-100)
+let xCuadradoN2=((canvas.width*3)-100)
 function dibujoCanvas() {
     // En cada ciclo: borro todo el canvas, dibujo al héroe, aumento el frame para animarlo y evito que pase del sexto,
    ctx.fillStyle=colorDeFondo
@@ -141,14 +145,14 @@ function dibujoCanvas() {
     ctx.fillStyle="red"
     ctx.fillRect(xPasillo,180,anchoP,200)
     
-ctx.fillRect(xCuadradoBlanco,220,100,50)
+ctx.fillRect(xCuadradoN2,220,100,50)
 ctx.fillStyle="white"
 
-  ctx.fillText("Salida",xCuadradoBlanco,240)
+  ctx.fillText("Salida",xCuadradoN2,240)
    
     heroe.draw()
-    heroe.frame++
-    heroe.frame >= 6 ? heroe.frame = 0 : null;
+    heroe.frameX++
+    heroe.frameX >= 5 ? heroe.frameX = 0 : null;
     
     
     // luego por cada pared del array, la dibujo y le pregunto al héroe si la chocó.
@@ -174,7 +178,7 @@ if(heroe.x+heroe.width>xPasillo+anchoP){
 }
 if(aux2==1){
     heroe.x=10
-  xCuadradoBlanco=canvas.width-100
+  xCuadradoN2=canvas.width-100
 
     aux2++
     
@@ -242,7 +246,7 @@ if(aux3>1){
   ctx.fillText("Este sería el siguiente nivel ",10,50)
 
     paredes=[]
-    xCuadradoBlanco=-500
+    xCuadradoN2=-500
 }
 
 
@@ -271,6 +275,7 @@ document.addEventListener("keydown", (e) => {
         case "W":
             if (!heroe.collide) {
                 heroe.y -= 3;
+                heroe.frameY=2
             } else {
                 heroe.y += 15;
                 heroe.collide = false;
@@ -283,7 +288,7 @@ document.addEventListener("keydown", (e) => {
         case "s":
         case "S":
             if (!heroe.collide) {
-                heroe.y += 3;
+                heroe.y += 3;heroe.frameY=3
             } else {
                 heroe.y -= 15;
                 heroe.collide = false;
@@ -298,6 +303,7 @@ document.addEventListener("keydown", (e) => {
         case "A":
             if (!heroe.collide) {
                 heroe.x -= 3;
+                heroe.frameY=1
             } else {
                 heroe.x += 15;
                 heroe.collide = false;
@@ -310,6 +316,7 @@ document.addEventListener("keydown", (e) => {
         case "D":
             if (!heroe.collide) {
                 heroe.x += 3;
+                heroe.frameY=0
             } else {
                 heroe.x -= 15;
                 heroe.collide = false;
