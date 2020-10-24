@@ -12,13 +12,12 @@ let altoPared=95
 let grosorPared=5
 // Le cambié el nombre a algunas propiedades para MI comodidad, no porque estuvieran mal.
 // Agregué el parámetro "color" para debuggear mejor cuál pared estaba tocando. Pueden sacarlo.
-function Rectangulo(positionX, positionY, ancho, alto, color,vertical) {
+function Rectangulo(positionX, positionY, ancho, alto, color) {
     this.x = positionX;
     this.y = positionY;
     this.width = ancho;
     this.height = alto;
     this.color = color;
-    this.vertical=vertical;
 
     this.dibujar = function () {
         ctx.fillStyle = this.color
@@ -27,7 +26,7 @@ function Rectangulo(positionX, positionY, ancho, alto, color,vertical) {
 }
 
 let girl = new Image()
-girl.src = "img/nn-run.png"
+girl.src = "../img/nn-run.png"
 // let pasillo=new Image()
 // pasillo.src="img/pieza.png"
 
@@ -59,14 +58,13 @@ class Hero {
             const wallBottom = wall.y + wall.height;
             const wallLeft = wall.x;
             const wallRight = wall.x + wall.width;
+            
 
             // Compruebo si los bordes chocan.
-            if (
-                this.left < wallRight &&
+            if ( this.left < wallRight &&
                 this.right > wallLeft &&
                 this.top < wallBottom &&
                 this.bottom > wallTop
-
             ) {
                 this.collide = true;
             }
@@ -76,44 +74,43 @@ class Hero {
 }
 // Genero un array vacío y voy pusheando paredes nuevas.
 let bordesPantalla=[]
-let paredes = []
-paredes.push(new Rectangulo(0, altoPared, anchoPared,grosorPared, "#b3a659"))
-paredes.push(new Rectangulo(anchoPared, altoPared, grosorPared, altoPared))
-paredes.push(new Rectangulo(anchoPared*2,0,grosorPared,altoPared*2))
+const paredes = [
+    new Rectangulo(0, altoPared, anchoPared,grosorPared, "#b3a659"),
+    new Rectangulo(anchoPared, altoPared, grosorPared, altoPared),
+    new Rectangulo(anchoPared*2,0,grosorPared,altoPared*2),
+    new Rectangulo(anchoPared,altoPared*4,anchoPared,grosorPared),
+    new Rectangulo(anchoPared,altoPared*3,grosorPared,altoPared),
+    new Rectangulo(anchoPared,altoPared*3,anchoPared*2,grosorPared),
+    new Rectangulo(anchoPared*3,altoPared,grosorPared,altoPared*2),
+    new Rectangulo(anchoPared*3,altoPared,anchoPared,grosorPared),
+    new Rectangulo(anchoPared*4,altoPared,grosorPared,altoPared),
+    new Rectangulo(anchoPared*3,altoPared*4,anchoPared*2,grosorPared),
+    new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared*2),
+    new Rectangulo(anchoPared*5,0,grosorPared,altoPared),
+    new Rectangulo(anchoPared*5,altoPared,anchoPared*2,grosorPared),
+    new Rectangulo(anchoPared*5,0,grosorPared,altoPared),
+    new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared),
+    new Rectangulo(anchoPared*6,altoPared,grosorPared,altoPared),
+    new Rectangulo(anchoPared*7,altoPared,grosorPared,altoPared),
 
-paredes.push(new Rectangulo(anchoPared,altoPared*4,anchoPared,grosorPared))
-paredes.push(new Rectangulo(anchoPared,altoPared*3,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared,altoPared*3,anchoPared*2,grosorPared))
-paredes.push(new Rectangulo(anchoPared*3,altoPared,grosorPared,altoPared*2))
-paredes.push(new Rectangulo(anchoPared*3,altoPared,anchoPared,grosorPared))
-paredes.push(new Rectangulo(anchoPared*4,altoPared,grosorPared,altoPared))
+    new Rectangulo(anchoPared*6,altoPared*4,anchoPared,grosorPared),
+    new Rectangulo(anchoPared*6,altoPared*3,grosorPared,altoPared),
+    new Rectangulo(anchoPared*6,altoPared*3,anchoPared*2,grosorPared),
+    new Rectangulo(anchoPared*8,0,grosorPared,altoPared*3),
 
-paredes.push(new Rectangulo(anchoPared*3,altoPared*4,anchoPared*2,grosorPared))
-paredes.push(new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared*2))
+    new Rectangulo(anchoPared*9,0,grosorPared,altoPared*2),
 
+    new Rectangulo(anchoPared*9,altoPared*3,grosorPared,altoPared*3),
+    new Rectangulo(anchoPared*9,altoPared*3,anchoPared,grosorPared),
 
-paredes.push(new Rectangulo(anchoPared*5,0,grosorPared,altoPared))
+    // BORDES DE LA PANTALLA
+    new Rectangulo(0,0,canvas.width,grosorPared),
+    new Rectangulo(canvas.width-5,0,grosorPared,altoPared*2),
+    new Rectangulo(0,canvas.height-5,canvas.width,grosorPared),
+    new Rectangulo(0,0,grosorPared,canvas.height)
 
-paredes.push(new Rectangulo(anchoPared*5,0,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*5,altoPared,anchoPared*2,grosorPared))
-paredes.push(new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*6,altoPared,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*7,altoPared,grosorPared,altoPared))
+]
 
-paredes.push(new Rectangulo(anchoPared*6,altoPared*4,anchoPared,grosorPared))
-paredes.push(new Rectangulo(anchoPared*6,altoPared*3,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*6,altoPared*3,anchoPared*2,grosorPared))
-paredes.push(new Rectangulo(anchoPared*8,0,grosorPared,altoPared*3))
-
-paredes.push(new Rectangulo(anchoPared*9,0,grosorPared,altoPared*2))
-
-paredes.push(new Rectangulo(anchoPared*9,altoPared*3,grosorPared,altoPared*3))
-paredes.push(new Rectangulo(anchoPared*9,altoPared*3,anchoPared,grosorPared))
-// Bordes de la pantalla
-paredes.push(new Rectangulo(0,0,canvas.width,grosorPared))
-paredes.push(new Rectangulo(canvas.width-5,0,grosorPared,altoPared*2))
-paredes.push(new Rectangulo(0,canvas.height-5,canvas.width,grosorPared))
-paredes.push(new Rectangulo(0,0,grosorPared,canvas.height))
 
 // Instancio al héroe.
 let heroe = new Hero();
