@@ -22,6 +22,39 @@ main{
     position: relative;
     height: 100vh;
     overflow: hidden;
-    background-image: url('../img/alfombra.png');
-    color: white;
+background-color: black;
 }
+
+#sombra{
+    box-shadow: 20px -50px 170px 170px rgba(0,0,0,0.99) inset;
+    -webkit-box-shadow: 20px -50px 170px 170px rgba(0,0,0,0.99) inset;
+    -moz-box-shadow: 20px -50px 170px 170px rgba(0,0,0,0.99) inset;
+    position:absolute;
+    width: 1000px;
+    height: 600px;
+    transform:rotateX(45deg) translateZ(-70px) ;
+    bottom: 0px;
+    }
+    #canvas{
+        transform:rotateX(45deg) translateZ(-70px) ;
+        bottom: 0px;
+        position:absolute;
+    
+    }
+    h1,#title{
+        color: whitesmoke;
+        position: absolute;
+        font-size: 8vh;
+    }
+    h1{
+    top: 20vh;
+    }
+    
+    #title{
+        height: 10vh;
+        width: 10vh;
+        border-color: whitesmoke;
+        border-width: 30px;
+    }
+
+
