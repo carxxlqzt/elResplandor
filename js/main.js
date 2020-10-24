@@ -116,6 +116,7 @@ paredes.push(new Rectangulo(0,0,grosorPared,canvas.height))
 
 // Instancio al héroe.
 let heroe = new Hero();
+let colorDeFondo="#53290b"
 let anchoP=canvas.width+10
 let xPasillo=canvas.width+20
 
@@ -126,7 +127,7 @@ let aux3=0
 let xCuadradoBlanco=((canvas.width*3)-100)
 function dibujoCanvas() {
     // En cada ciclo: borro todo el canvas, dibujo al héroe, aumento el frame para animarlo y evito que pase del sexto,
-   ctx.fillStyle="#53290b"
+   ctx.fillStyle=colorDeFondo
     ctx.fillRect(0,0,canvas.width,canvas.height)
     // ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.fillStyle="#a70e06"
@@ -140,7 +141,10 @@ function dibujoCanvas() {
     ctx.fillStyle="red"
     ctx.fillRect(xPasillo,180,anchoP,200)
     
-ctx.fillRect(xCuadradoBlanco,200,100,100)
+ctx.fillRect(xCuadradoBlanco,220,100,50)
+ctx.fillStyle="white"
+
+  ctx.fillText("Salida",xCuadradoBlanco,240)
    
     heroe.draw()
     heroe.frame++
@@ -176,33 +180,38 @@ if(aux2==1){
     
 }
 if(aux2>1){
-    paredes.push(new Rectangulo(0, altoPared, anchoPared,grosorPared, "#b3a659"))
-paredes.push(new Rectangulo(anchoPared, altoPared, grosorPared, altoPared))
-paredes.push(new Rectangulo(anchoPared*2,0,grosorPared,altoPared*2))
-
-paredes.push(new Rectangulo(anchoPared,altoPared*4,anchoPared,grosorPared))
+    colorDeFondo="#7A9AAF"
+    paredes.push(new Rectangulo(anchoPared, 0, grosorPared,altoPared*4, "#2C2B3D"))
+paredes.push(new Rectangulo(anchoPared, altoPared*2, anchoPared, grosorPared))
+paredes.push(new Rectangulo(anchoPared*2,altoPared*2,grosorPared,altoPared/4))
+//pared cruzada
+paredes.push(new Rectangulo(anchoPared+anchoPared/2,altoPared*2,grosorPared,altoPared))
 paredes.push(new Rectangulo(anchoPared,altoPared*3,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared,altoPared*3,anchoPared*2,grosorPared))
-paredes.push(new Rectangulo(anchoPared*3,altoPared,grosorPared,altoPared*2))
-paredes.push(new Rectangulo(anchoPared*3,altoPared,anchoPared,grosorPared))
-paredes.push(new Rectangulo(anchoPared*4,altoPared,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared,altoPared*3,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*2,altoPared*3,grosorPared,altoPared))
 
-paredes.push(new Rectangulo(anchoPared*3,altoPared*4,anchoPared*2,grosorPared))
-paredes.push(new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared*2))
+paredes.push(new Rectangulo(anchoPared*2,altoPared,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*3,altoPared,grosorPared,altoPared*4))
 
+paredes.push(new Rectangulo(anchoPared*3,altoPared*3,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*3+anchoPared/2,altoPared*3,grosorPared,altoPared+altoPared/2))
+
+
+paredes.push(new Rectangulo(anchoPared*4,altoPared*3,grosorPared,altoPared+altoPared/2))
+
+paredes.push(new Rectangulo(anchoPared*4,0,grosorPared,altoPared*2))
+paredes.push(new Rectangulo(anchoPared*5,altoPared*2,grosorPared,altoPared*3))
 
 paredes.push(new Rectangulo(anchoPared*5,0,grosorPared,altoPared))
-
-paredes.push(new Rectangulo(anchoPared*5,0,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*5,altoPared,anchoPared*2,grosorPared))
-paredes.push(new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*6,altoPared,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*7,altoPared,grosorPared,altoPared))
-
-paredes.push(new Rectangulo(anchoPared*6,altoPared*4,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*5,altoPared,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*6,altoPared,grosorPared,altoPared*2))
 paredes.push(new Rectangulo(anchoPared*6,altoPared*3,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*6,altoPared*3,anchoPared*2,grosorPared))
-paredes.push(new Rectangulo(anchoPared*8,0,grosorPared,altoPared*3))
+paredes.push(new Rectangulo(anchoPared*6,altoPared*3+altoPared/2,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*6,altoPared*4,anchoPared,grosorPared))
+
+paredes.push(new Rectangulo(anchoPared*6,altoPared*3,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*7,0,grosorPared,altoPared*3))
+paredes.push(new Rectangulo(anchoPared*8,altoPared,grosorPared,altoPared*5))
 
 paredes.push(new Rectangulo(anchoPared*9,0,grosorPared,altoPared*2))
 
