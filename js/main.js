@@ -1,20 +1,24 @@
 
 let canvas = document.querySelector("canvas")
 let ctx = canvas.getContext("2d")
-canvas.width =1000
-canvas.height = 487
-// En lugar de pintar un rectangulo rosa, seteo el background del canvas con el color
-// para consumir menos recursos.
+canvas.width =1010
+canvas.height = 460
 
-//Medidas de las paredes
-let anchoPared= 95
-let altoPared=95
+
+//Medidas del laberinto y sus paredes (en la misma hay operaciones que nos permiten cambiarle el tamaño a nuestro gusto)
+let anchoLaberinto=canvas.width-70
+let altoLaberinto=canvas.height-80
+let xLab=30
+let yLab=50
+let op1=canvas.width/12
+let op2=canvas.height/5
+let anchoPared= op1+10
+let altoPared=op2-22
 let grosorPared=5
-// Le cambié el nombre a algunas propiedades para MI comodidad, no porque estuvieran mal.
 // Agregué el parámetro "color" para debuggear mejor cuál pared estaba tocando. Pueden sacarlo.
 function Rectangulo(positionX, positionY, ancho, alto, color,vertical) {
-    this.x = positionX;
-    this.y = positionY;
+    this.x = positionX+xLab;
+    this.y = positionY+yLab;
     this.width = ancho;
     this.height = alto;
     this.color = color;
@@ -28,8 +32,6 @@ function Rectangulo(positionX, positionY, ancho, alto, color,vertical) {
 // Llamar a la imagen del personaje
 let dani = new Image()
 dani.src = "img/daniel.png"
-// let pasillo=new Image()
-// pasillo.src="img/pieza.png"
 
 // Convertí al héroe en una clase para poder darle métodos.
 class Hero {
@@ -38,10 +40,10 @@ class Hero {
         this.src = personaje;
         this.frameX = 0;
         this.frameY=0
-        this.x = 900;
-        this.y = 10;
-        this.width = 64;
-        this.height = 64;
+        this.x = 700;
+        this.y = 100;
+        this.width = 54;
+        this.height = 54;
         this.collide = false;
         this.widthImage=widthImage
         this.heightImage=heightImage
@@ -79,7 +81,6 @@ class Hero {
     }
 }
 // Genero un array vacío y voy pusheando paredes nuevas.
-let bordesPantalla=[]
 let paredes = []
 paredes.push(new Rectangulo(0, altoPared, anchoPared,grosorPared, "#b3a659"))
 paredes.push(new Rectangulo(anchoPared, altoPared, grosorPared, altoPared))
@@ -87,13 +88,13 @@ paredes.push(new Rectangulo(anchoPared*2,0,grosorPared,altoPared*2))
 
 paredes.push(new Rectangulo(anchoPared,altoPared*4,anchoPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared,altoPared*3,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared,altoPared*3,anchoPared*2,grosorPared))
+paredes.push(new Rectangulo(anchoPared,altoPared*3,anchoPared*2 +grosorPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared*3,altoPared,grosorPared,altoPared*2))
 paredes.push(new Rectangulo(anchoPared*3,altoPared,anchoPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared*4,altoPared,grosorPared,altoPared))
 
 paredes.push(new Rectangulo(anchoPared*3,altoPared*4,anchoPared*2,grosorPared))
-paredes.push(new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared*2))
+paredes.push(new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared+altoPared/3))
 
 
 paredes.push(new Rectangulo(anchoPared*5,0,grosorPared,altoPared))
@@ -106,49 +107,64 @@ paredes.push(new Rectangulo(anchoPared*7,altoPared,grosorPared,altoPared))
 
 paredes.push(new Rectangulo(anchoPared*6,altoPared*4,anchoPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared*6,altoPared*3,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*6,altoPared*3,anchoPared*2,grosorPared))
+paredes.push(new Rectangulo(anchoPared*6,altoPared*3,anchoPared*2+grosorPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared*8,0,grosorPared,altoPared*3))
 
 paredes.push(new Rectangulo(anchoPared*9,0,grosorPared,altoPared*2))
 
-paredes.push(new Rectangulo(anchoPared*9,altoPared*3,grosorPared,altoPared*3))
-paredes.push(new Rectangulo(anchoPared*9,altoPared*3,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*9,altoPared*3,grosorPared,altoPared*2+altoPared/3))
+paredes.push(new Rectangulo(anchoPared*9,altoPared*3,anchoPared-anchoPared/3,grosorPared))
 // Bordes de la pantalla
-paredes.push(new Rectangulo(0,0,canvas.width,grosorPared))
-paredes.push(new Rectangulo(canvas.width-5,0,grosorPared,altoPared*2))
-paredes.push(new Rectangulo(0,canvas.height-5,canvas.width,grosorPared))
-paredes.push(new Rectangulo(0,0,grosorPared,canvas.height))
-
+paredes.push(new Rectangulo(0,0,anchoLaberinto,grosorPared))
+paredes.push(new Rectangulo(anchoLaberinto-5,0,grosorPared,altoPared*2))
+paredes.push(new Rectangulo(0,altoLaberinto-5,anchoLaberinto,grosorPared))
+paredes.push(new Rectangulo(0,0,grosorPared,altoLaberinto))
 // Instancio al héroe.
 let heroe = new Hero(dani,120,190);
-let colorDeFondo="#53290b"
-let anchoP=canvas.width+10
+let colorDeFondo="#453635"
+let widthPasillo1=anchoLaberinto
 let xPasillo=canvas.width+20
 
-let condition=false
+//Variables auxiliares que nos permiten pasar de un nivel a otro
 let aux=0
 let aux2=0
 let aux3=0
 let aux4=0
 let aux5=0
+//Variables del TIEMPO Y LA PUNTUACION
+let time=0
+let score=0
+//Estas son las coordenadas de los elementos que nos permitiran pasar de un nivel a otro
 let xCuadradoN2=((canvas.width*3)-100)
 let xPasilloN3=((canvas.width*4)-100)
 let xCuadradoN3=((canvas.width*5)-100)
 function dibujoCanvas() {
-    // En cada ciclo: borro todo el canvas, dibujo al héroe, aumento el frame para animarlo y evito que pase del sexto,
-   ctx.fillStyle=colorDeFondo
-    ctx.fillRect(0,0,canvas.width,canvas.height)
-    // ctx.clearRect(0, 0, canvas.width, canvas.height)
+    //RECTANGULO CANVAS GENERAL
+    //color de fondo del canvas
+   ctx.fillStyle="black"
+   //rectangulo
+   ctx.fillRect(0,0,canvas.width,canvas.height)
+    time++
+   //TIMER
+   ctx.fillStyle="white"
+   ctx.font="30px Amatic SC" 
+   ctx.fillText(`TIME:${time}`,50,40 )
+   ctx.fillText(`SCORE:${score}`,canvas.width-200,40 )
+   //RECTANGULO DEL LABERINTO
+   ctx.fillStyle=colorDeFondo //Del laberinto
+    ctx.fillRect(xLab,yLab,anchoLaberinto,altoLaberinto)
+
+     // En cada ciclo: borro todo el canvas, dibujo al héroe, aumento el frame para animarlo y evito que pase del sexto,
+     // ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.fillStyle="#a70e06"
     ctx.font="50px Amatic SC" 
-    
     ctx.fillText("REDRUM",380,250 ) 
    //ELEMENTOS PASAJE A SEGUNDO NIVEL
     ctx.fillStyle="white"
     ctx.font="26px Amatic SC"
   ctx.fillText("RUN RUN!! --> (acá podriamos poner fantasmitas que quieran atrapar al niño) ",xPasillo,100)
     ctx.fillStyle="red"
-    ctx.fillRect(xPasillo,180,anchoP,200)
+    ctx.fillRect(xPasillo,180,widthPasillo1,200)
     //ELEMENTOS SEGUNDO NIVEL
 ctx.fillRect(xCuadradoN2,220,100,50)
 ctx.fillStyle="white"
@@ -171,26 +187,28 @@ ctx.fillStyle="white"
     paredes.forEach(pared => {
         pared.dibujar()
         heroe.checkCollision(pared)
+        
+        
   
     })
 
     //PASAJE AL SEGUNDO NIVEL
- if(heroe.x+heroe.width>canvas.width){
+ if(heroe.x+heroe.width>anchoLaberinto){
                     aux=aux+1
                                 }  
 if(aux==1){
- xPasillo=0;
+ xPasillo=30;
   paredes=[]
- heroe.x=10
+ heroe.x=xLab+10
  aux++
 }
-if(heroe.x+heroe.width>xPasillo+anchoP){
+if(heroe.x+heroe.width>xPasillo+widthPasillo1){
     xPasillo=-canvas.width-20
     aux2++
 }
 if(aux2==1){
-    heroe.x=10
-  xCuadradoN2=canvas.width-100
+    heroe.x=xLab+10
+  xCuadradoN2=anchoLaberinto-70
 
     aux2++
     
@@ -208,7 +226,7 @@ paredes.push(new Rectangulo(anchoPared,altoPared*3,anchoPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared*2,altoPared*3,grosorPared,altoPared))
 
 paredes.push(new Rectangulo(anchoPared*2,altoPared,anchoPared,grosorPared))
-paredes.push(new Rectangulo(anchoPared*3,altoPared,grosorPared,altoPared*4))
+paredes.push(new Rectangulo(anchoPared*3,altoPared,grosorPared,altoPared*4+altoPared/3))
 
 paredes.push(new Rectangulo(anchoPared*3,altoPared*3,anchoPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared*3+anchoPared/2,altoPared*3,grosorPared,altoPared+altoPared/2))
@@ -217,7 +235,7 @@ paredes.push(new Rectangulo(anchoPared*3+anchoPared/2,altoPared*3,grosorPared,al
 paredes.push(new Rectangulo(anchoPared*4,altoPared*3,grosorPared,altoPared+altoPared/2))
 
 paredes.push(new Rectangulo(anchoPared*4,0,grosorPared,altoPared*2))
-paredes.push(new Rectangulo(anchoPared*5,altoPared*2,grosorPared,altoPared*3))
+paredes.push(new Rectangulo(anchoPared*5,altoPared*2,grosorPared,altoPared*3+altoPared/3))
 
 paredes.push(new Rectangulo(anchoPared*5,0,grosorPared,altoPared))
 paredes.push(new Rectangulo(anchoPared*5,altoPared,anchoPared,grosorPared))
@@ -227,30 +245,26 @@ paredes.push(new Rectangulo(anchoPared*6,altoPared*3+altoPared/2,anchoPared,gros
 paredes.push(new Rectangulo(anchoPared*6,altoPared*4,anchoPared,grosorPared))
 
 paredes.push(new Rectangulo(anchoPared*6,altoPared*3,anchoPared,grosorPared))
-paredes.push(new Rectangulo(anchoPared*7,0,grosorPared,altoPared*3))
-paredes.push(new Rectangulo(anchoPared*8,altoPared,grosorPared,altoPared*5))
+paredes.push(new Rectangulo(anchoPared*7,0,grosorPared,altoPared*3+grosorPared))
+paredes.push(new Rectangulo(anchoPared*8,altoPared,grosorPared,altoPared*4+altoPared/3))
 
 paredes.push(new Rectangulo(anchoPared*9,0,grosorPared,altoPared*2))
 
-paredes.push(new Rectangulo(anchoPared*9,altoPared*3,grosorPared,altoPared*3))
+paredes.push(new Rectangulo(anchoPared*9,altoPared*3,grosorPared,altoPared*2+altoPared/3))
 paredes.push(new Rectangulo(anchoPared*9,altoPared*3,anchoPared,grosorPared))
 // Bordes de la pantalla
-paredes.push(new Rectangulo(0,0,canvas.width,grosorPared))
-paredes.push(new Rectangulo(canvas.width-5,0,grosorPared,altoPared*2))
-paredes.push(new Rectangulo(0,canvas.height-5,canvas.width,grosorPared))
-paredes.push(new Rectangulo(0,0,grosorPared,canvas.height))
-ctx.fillStyle="white"
-ctx.font="30px Amatic SC"
-  ctx.fillText("Este sería el segundo nivel ",xCuadradoN2-300,50)
-if(heroe.x+heroe.width>xCuadradoN2+90){
- 
+paredes.push(new Rectangulo(0,0,anchoLaberinto,grosorPared))
+paredes.push(new Rectangulo(anchoLaberinto-5,0,grosorPared,altoPared*2))
+paredes.push(new Rectangulo(0,altoLaberinto-5,anchoLaberinto,grosorPared))
+paredes.push(new Rectangulo(0,0,grosorPared,altoLaberinto))
 
+if(heroe.x+heroe.width>xCuadradoN2+90){
     aux3++
 }
 //PASAJE AL TERCER NIVEL
 if(aux3==1){
-    heroe.x=10
-    xPasilloN3=canvas.width-50
+    heroe.x=xLab+10
+    xPasilloN3=anchoLaberinto-25
     
     aux3++
      
@@ -258,7 +272,7 @@ if(aux3==1){
 if(aux3>1){
     colorDeFondo="#c8ae8a"
     ctx.fillStyle="white"
-  ctx.fillText("Este sería el pasaje al siguiente nivel (hay que cruzar el cuadrado rosa) ",xPasilloN3-900,50)
+  ctx.fillText("Este sería el pasaje al siguiente nivel (hay que cruzar el cuadrado rosa) ",xPasilloN3-800,100)
 
     paredes=[]
     xCuadradoN2=-500
@@ -267,10 +281,10 @@ if(heroe.x+heroe.width>xPasilloN3+50){
 aux4++
 }
 if(aux4==1){
-    heroe.x=10
+    heroe.x=xLab+10
     aux4++
     xPasilloN3=-500
-    xCuadradoN3=canvas.width-100
+    xCuadradoN3=anchoLaberinto-70
 }
 if(aux4>1){
     colorDeFondo="#1c7456"
@@ -285,24 +299,32 @@ paredes.push(new Rectangulo(anchoPared,altoPared,anchoPared*2,grosorPared))
 paredes.push(new Rectangulo(anchoPared*3,altoPared,grosorPared,altoPared/2))
 paredes.push(new Rectangulo(anchoPared*2,altoPared,grosorPared,altoPared))
 paredes.push(new Rectangulo(anchoPared*2,altoPared*2,anchoPared,grosorPared))
-paredes.push(new Rectangulo(anchoPared*3,altoPared*2,grosorPared,altoPared*2))
+paredes.push(new Rectangulo(anchoPared*3,altoPared*2,anchoPared/2,grosorPared))
+paredes.push(new Rectangulo(anchoPared*3,altoPared*2,grosorPared,altoPared*1+altoPared/2))
+paredes.push(new Rectangulo(anchoPared*3,altoPared*4+altoPared/2,grosorPared,altoPared-10))
+
 
 paredes.push(new Rectangulo(anchoPared*4,0,grosorPared,altoPared))
 paredes.push(new Rectangulo(anchoPared*4,altoPared,anchoPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared*5,altoPared,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*4+anchoPared/2,altoPared*2,anchoPared/2,grosorPared))
 paredes.push(new Rectangulo(anchoPared*5,altoPared*2,anchoPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared*6,altoPared*2,grosorPared,altoPared))
 paredes.push(new Rectangulo(anchoPared*6,altoPared*3,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*5+anchoPared/2,altoPared*3,anchoPared/2,grosorPared))
 
-paredes.push(new Rectangulo(anchoPared*4,altoPared*3,grosorPared,altoPared*2))
 
-paredes.push(new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*5,altoPared*4,anchoPared*3,grosorPared))
+paredes.push(new Rectangulo(anchoPared*4,altoPared*3,grosorPared,altoPared*2+altoPared/3))
+paredes.push(new Rectangulo(anchoPared*4,altoPared*3,anchoPared/2,grosorPared))
+
+
+paredes.push(new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared+altoPared/3))
+paredes.push(new Rectangulo(anchoPared*5,altoPared*4,anchoPared*3+grosorPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared*7,altoPared*2,anchoPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared*8,altoPared*2,grosorPared,altoPared*2))
 
-paredes.push(new Rectangulo(anchoPared*7,altoPared,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*6,altoPared,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*7,altoPared+altoPared/2,grosorPared,altoPared/2))
+paredes.push(new Rectangulo(anchoPared*6,altoPared/2,anchoPared,grosorPared))
 
 paredes.push(new Rectangulo(anchoPared*9,0,grosorPared,altoPared*3))
 paredes.push(new Rectangulo(anchoPared*8,altoPared,anchoPared,grosorPared))
@@ -310,15 +332,15 @@ paredes.push(new Rectangulo(anchoPared*8,altoPared,anchoPared,grosorPared))
 paredes.push(new Rectangulo(anchoPared*9,altoPared*3,anchoPared/2,grosorPared))
 
 paredes.push(new Rectangulo(anchoPared*9,altoPared*4,grosorPared,altoPared))
-paredes.push(new Rectangulo(anchoPared*9,altoPared*4,anchoPared*3,grosorPared))
+paredes.push(new Rectangulo(anchoPared*9,altoPared*4,anchoPared-5,grosorPared))
 
-paredes.push(new Rectangulo(anchoPared*10,altoPared*2,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*9+anchoPared/2.25,altoPared*2,anchoPared/2,grosorPared))
 
 // Bordes de la pantalla
-paredes.push(new Rectangulo(0,0,canvas.width,grosorPared))
-paredes.push(new Rectangulo(canvas.width-5,0,grosorPared,altoPared*2))
-paredes.push(new Rectangulo(0,canvas.height-5,canvas.width,grosorPared))
-paredes.push(new Rectangulo(0,0,grosorPared,canvas.height)) 
+paredes.push(new Rectangulo(0,0,anchoLaberinto,grosorPared))
+paredes.push(new Rectangulo(anchoLaberinto-5,0,grosorPared,altoPared*2))
+paredes.push(new Rectangulo(0,altoLaberinto-5,anchoLaberinto,grosorPared))
+paredes.push(new Rectangulo(0,0,grosorPared,altoLaberinto))
 }
 if(heroe.x+heroe.width>xCuadradoN3+50){
     aux5++
@@ -331,8 +353,9 @@ if(heroe.x+heroe.width>xCuadradoN3+50){
     if(aux5>1){
         xCuadradoN3=-500
         paredes=[]
+        colorDeFondo="pink"
         ctx.fillStyle="white"
-        ctx.fillText("GANASTE!!",350,50)
+        ctx.fillText("GANASTE!!",350,150)
       
     }
 }
