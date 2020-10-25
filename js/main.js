@@ -429,11 +429,11 @@ document.addEventListener("keydown", (e) => {
             if (!heroe.collide) {
                 heroe.x += 3;
                 heroe.frameY=0
-                paredes.forEach(e=>e.color="#b3a659")
+                // paredes.forEach(e=>e.color="#b3a659")
             } else {
                 heroe.x -= 15;
 
-                paredes.forEach(e=>e.color="white")
+                // paredes.forEach(e=>e.color="white")
 
                 heroe.collide = false;
             }
