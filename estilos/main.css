@@ -1,3 +1,4 @@
+/*GENERAL*/
 html {
     margin: 0;
     scroll-behavior: smooth;
@@ -35,38 +36,48 @@ main{
     transform:rotateX(45deg) translateZ(-70px) ;
     bottom: 0px;
     }
-    #canvas{
-        transform:rotateX(45deg) translateZ(-70px) ;
-        bottom: 0px;
-        position:absolute;
+#canvas{
+    transform:rotateX(45deg) translateZ(-70px) ;
+    bottom: 0px;
+    position:absolute;
     
-    }
-    h1{
-        color: whitesmoke;
-        position: absolute;
-        font-size: 9vh;
-    }
+}
+h1{
+    color: whitesmoke;
+    position: absolute;
+    font-size: 9vh;
+}
 
-    h2{
-        color: whitesmoke;
-        position: absolute;
-        font-size: 12vh;
-        border: solid whitesmoke;
-        text-align: center;
-        display: flex;
-        align-items: center;
-    }
-    h1{
+h2{
+    color: whitesmoke;
+    position: absolute;
+    font-size: 12vh;
+    border: solid whitesmoke;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+h1{
     top: 20vh;
-    }
-    
-    #title{
-        height: 10vh;
-        width: 10vh;
-        border-color: whitesmoke;
-        border-width: 30px;
-    }
+}
 
+p{
+    color: whitesmoke;
+    font-size: 30px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    z-index: 5;
+}
+    
+#title{
+    height: 10vh;
+    width: 10vh;
+    border-color: whitesmoke;
+    border-width: 30px;
+}
+
+/*Intro*/
 #intro button{
     z-index: 3;
     border: solid 2px whitesmoke;
@@ -81,7 +92,11 @@ main{
 #intro a{
     color: whitesmoke;
 }
-
+/*Historia*/
+#historia button{
+    right: 25px;
+    position: absolute;
+}
 
 
 /*animaciones*/
