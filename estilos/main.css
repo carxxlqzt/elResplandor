@@ -22,7 +22,7 @@ main{
     position: relative;
     height: 100vh;
     overflow: hidden;
-background-color: black;
+    background-color: black;
 }
 
 #sombra{
@@ -41,10 +41,20 @@ background-color: black;
         position:absolute;
     
     }
-    h1,#title{
+    h1{
         color: whitesmoke;
         position: absolute;
-        font-size: 8vh;
+        font-size: 9vh;
+    }
+
+    h2{
+        color: whitesmoke;
+        position: absolute;
+        font-size: 12vh;
+        border: solid whitesmoke;
+        text-align: center;
+        display: flex;
+        align-items: center;
     }
     h1{
     top: 20vh;
@@ -57,4 +67,34 @@ background-color: black;
         border-width: 30px;
     }
 
+#intro button{
+    z-index: 3;
+    border: solid 2px whitesmoke;
+    background: transparent;
+    color: whitesmoke;
+    position: absolute; 
+    font-size: 7vh;
+    bottom: 20vh;
+    animation: onOff 2s infinite;
+}
 
+#intro a{
+    color: whitesmoke;
+}
+
+
+
+/*animaciones*/
+@keyframes onOff{
+    0%{
+        opacity: 0;
+    }
+
+    20%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0;
+    }
+}
