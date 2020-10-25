@@ -26,6 +26,7 @@ main{
     background-color: black;
 }
 
+/* Alfombra canvas */
 #sombra{
     box-shadow: 20px -50px 170px 170px rgba(0,0,0,0.99) inset;
     -webkit-box-shadow: 20px -50px 170px 170px rgba(0,0,0,0.99) inset;
@@ -33,15 +34,18 @@ main{
     position:absolute;
     width: 1000px;
     height: 600px;
-    transform:rotateX(45deg) translateZ(-70px) ;
+    transform:rotateX(45deg) translateZ(-75px) ;
     bottom: 0px;
+    border: solid 10px black;
     }
-#canvas{
+#canvas, #alfombra{
     transform:rotateX(45deg) translateZ(-70px) ;
     bottom: 0px;
     position:absolute;
     
 }
+
+/* Portada */
 h1{
     color: whitesmoke;
     position: absolute;
@@ -94,10 +98,25 @@ p{
 }
 /*Historia*/
 #historia button{
-    right: 25px;
+    bottom: 50px;
     position: absolute;
+    z-index: 3;
+    border: solid 2px whitesmoke;
+    background: transparent;
+    color: whitesmoke;
+    position: absolute; 
+    font-size: 5vh;
+    animation: onOff 2s infinite;
 }
 
+.historiaParrafo{
+    position: sticky;
+    display: inline-block;
+    align-items: center;
+    margin: 10vh;
+    font-size: 20px;
+    margin-top: 50vh;
+}
 
 /*animaciones*/
 @keyframes onOff{
