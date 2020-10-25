@@ -80,6 +80,7 @@ class Hero {
         }
     }
 }
+
 // Genero un array vacío y voy pusheando paredes nuevas.
 let paredes = []
 paredes.push(new Rectangulo(0, altoPared, anchoPared,grosorPared, "#b3a659"))
@@ -192,7 +193,8 @@ ctx.fillStyle="white"
   
     })
 
-    //PASAJE AL SEGUNDO NIVEL
+    //PASAJE AL SEGUNDO NIVEL (SI SE QUIERE AGREGAR ELEMENTOS DEBE SER HECHO DENTRO DEL SECTOR "ELEMENTOS DE PASAJE A SEGUNDO NIVEL" 
+    // TAMBIEN SE DEBE ARRANCAR A DIBUJAR DESDE 50 PARA EL INDICE X  & 50 PARA EL INDICE Y )
  if(heroe.x+heroe.width>anchoLaberinto){
                     aux=aux+1
                                 }  
@@ -202,6 +204,7 @@ if(aux==1){
  heroe.x=xLab+10
  aux++
 }
+
 if(heroe.x+heroe.width>xPasillo+widthPasillo1){
     xPasillo=-canvas.width-20
     aux2++
