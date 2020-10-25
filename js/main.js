@@ -129,7 +129,11 @@ let condition=false
 let aux=0
 let aux2=0
 let aux3=0
+let aux4=0
+let aux5=0
 let xCuadradoN2=((canvas.width*3)-100)
+let xPasilloN3=((canvas.width*4)-100)
+let xCuadradoN3=((canvas.width*5)-100)
 function dibujoCanvas() {
     // En cada ciclo: borro todo el canvas, dibujo al héroe, aumento el frame para animarlo y evito que pase del sexto,
    ctx.fillStyle=colorDeFondo
@@ -139,18 +143,25 @@ function dibujoCanvas() {
     ctx.font="50px Amatic SC" 
     
     ctx.fillText("REDRUM",380,250 ) 
-   
+   //ELEMENTOS PASAJE A SEGUNDO NIVEL
     ctx.fillStyle="white"
     ctx.font="26px Amatic SC"
   ctx.fillText("RUN RUN!! --> (acá podriamos poner fantasmitas que quieran atrapar al niño) ",xPasillo,100)
     ctx.fillStyle="red"
     ctx.fillRect(xPasillo,180,anchoP,200)
-    
+    //ELEMENTOS SEGUNDO NIVEL
 ctx.fillRect(xCuadradoN2,220,100,50)
 ctx.fillStyle="white"
-
   ctx.fillText("Salida",xCuadradoN2,240)
+   //ELEMENTOS DEL PASAJE AL TERCER NIVEL
    
+    ctx.fillStyle="#cf98b2"
+   ctx.fillRect(xPasilloN3,190,50,100)
+   //ELEMENTOS DEL TERCER NIVEL
+   ctx.fillStyle="green"
+   ctx.fillRect(xCuadradoN3,220,100,50)
+ctx.fillStyle="white"
+  ctx.fillText("Salida",xCuadradoN3,240)
     heroe.draw()
     heroe.frameX++
     heroe.frameX >= 5 ? heroe.frameX = 0 : null;
@@ -162,8 +173,8 @@ ctx.fillStyle="white"
         heroe.checkCollision(pared)
   
     })
-    
-    
+
+    //PASAJE AL SEGUNDO NIVEL
  if(heroe.x+heroe.width>canvas.width){
                     aux=aux+1
                                 }  
@@ -184,6 +195,7 @@ if(aux2==1){
     aux2++
     
 }
+//LABERINTO SEGUNDO NIVEL
 if(aux2>1){
     colorDeFondo="#7A9AAF"
     paredes.push(new Rectangulo(anchoPared, 0, grosorPared,altoPared*4, "#2C2B3D"))
@@ -229,28 +241,100 @@ paredes.push(new Rectangulo(0,canvas.height-5,canvas.width,grosorPared))
 paredes.push(new Rectangulo(0,0,grosorPared,canvas.height))
 ctx.fillStyle="white"
 ctx.font="30px Amatic SC"
-  ctx.fillText("Este sería el segundo nivel ",xCuadradoBlanco-300,50)
-if(heroe.x+heroe.width>xCuadradoBlanco+90){
+  ctx.fillText("Este sería el segundo nivel ",xCuadradoN2-300,50)
+if(heroe.x+heroe.width>xCuadradoN2+90){
  
 
     aux3++
 }
+//PASAJE AL TERCER NIVEL
 if(aux3==1){
     heroe.x=10
-    
+    xPasilloN3=canvas.width-50
     
     aux3++
      
 }}
 if(aux3>1){
+    colorDeFondo="#c8ae8a"
     ctx.fillStyle="white"
-  ctx.fillText("Este sería el siguiente nivel ",10,50)
+  ctx.fillText("Este sería el pasaje al siguiente nivel (hay que cruzar el cuadrado rosa) ",xPasilloN3-900,50)
 
     paredes=[]
     xCuadradoN2=-500
 }
+if(heroe.x+heroe.width>xPasilloN3+50){
+aux4++
+}
+if(aux4==1){
+    heroe.x=10
+    aux4++
+    xPasilloN3=-500
+    xCuadradoN3=canvas.width-100
+}
+if(aux4>1){
+    colorDeFondo="#1c7456"
+    paredes.push(new Rectangulo(0, altoPared*3, anchoPared,grosorPared, "#2C2B3D"))
+paredes.push(new Rectangulo(anchoPared, altoPared*3, grosorPared, altoPared))
+    
+paredes.push(new Rectangulo(anchoPared, altoPared*4, anchoPared+5, grosorPared))
+paredes.push(new Rectangulo(anchoPared*2,altoPared*3,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*2,altoPared*3,anchoPared,grosorPared))
 
+paredes.push(new Rectangulo(anchoPared,altoPared,anchoPared*2,grosorPared))
+paredes.push(new Rectangulo(anchoPared*3,altoPared,grosorPared,altoPared/2))
+paredes.push(new Rectangulo(anchoPared*2,altoPared,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*2,altoPared*2,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*3,altoPared*2,grosorPared,altoPared*2))
 
+paredes.push(new Rectangulo(anchoPared*4,0,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*4,altoPared,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*5,altoPared,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*5,altoPared*2,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*6,altoPared*2,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*6,altoPared*3,anchoPared,grosorPared))
+
+paredes.push(new Rectangulo(anchoPared*4,altoPared*3,grosorPared,altoPared*2))
+
+paredes.push(new Rectangulo(anchoPared*5,altoPared*4,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*5,altoPared*4,anchoPared*3,grosorPared))
+paredes.push(new Rectangulo(anchoPared*7,altoPared*2,anchoPared,grosorPared))
+paredes.push(new Rectangulo(anchoPared*8,altoPared*2,grosorPared,altoPared*2))
+
+paredes.push(new Rectangulo(anchoPared*7,altoPared,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*6,altoPared,anchoPared,grosorPared))
+
+paredes.push(new Rectangulo(anchoPared*9,0,grosorPared,altoPared*3))
+paredes.push(new Rectangulo(anchoPared*8,altoPared,anchoPared,grosorPared))
+
+paredes.push(new Rectangulo(anchoPared*9,altoPared*3,anchoPared/2,grosorPared))
+
+paredes.push(new Rectangulo(anchoPared*9,altoPared*4,grosorPared,altoPared))
+paredes.push(new Rectangulo(anchoPared*9,altoPared*4,anchoPared*3,grosorPared))
+
+paredes.push(new Rectangulo(anchoPared*10,altoPared*2,anchoPared,grosorPared))
+
+// Bordes de la pantalla
+paredes.push(new Rectangulo(0,0,canvas.width,grosorPared))
+paredes.push(new Rectangulo(canvas.width-5,0,grosorPared,altoPared*2))
+paredes.push(new Rectangulo(0,canvas.height-5,canvas.width,grosorPared))
+paredes.push(new Rectangulo(0,0,grosorPared,canvas.height)) 
+}
+if(heroe.x+heroe.width>xCuadradoN3+50){
+    aux5++
+    }
+    if(aux5==1){
+        heroe.x=10
+        aux5++
+        
+    }
+    if(aux5>1){
+        xCuadradoN3=-500
+        paredes=[]
+        ctx.fillStyle="white"
+        ctx.fillText("GANASTE!!",350,50)
+      
+    }
 }
 // Reitero la función "dibujoCanvas" 8 veces por segundo.
 setInterval(dibujoCanvas, 1000 / 15)
