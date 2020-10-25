@@ -1,7 +1,5 @@
 const canvas = document.querySelector('#canvas')
 const ctx = canvas.getContext('2d')
-canvas.width =1000
-canvas.height = 600
 canvas.style.background = "#A03D1D"
 ctx.strokeStyle = "#351F11";
 ctx.fillStyle = "#590D09";
@@ -150,3 +148,12 @@ ctx.stroke();
 hexagonoA(0,450)
 fistLine(1,500)
 secondLine(140,560)
+
+
+var dataURL = canvas.toDataURL();
+imgConverted.src = dataURL;
+var alfombra = document.querySelector('#alfombra')
+alfombra.style.backgroundColor = "#A03D1D"
+alfombra.width = 1000
+alfombra.heigth= 595
+
