@@ -490,4 +490,4 @@ function moveDown(){
     }
 }
 let buttonUp= document.querySelector("#up")
-buttonUp.addEventListener('touchstart',moveUp())
+buttonUp.addEventListener('touchmove',moveUp())
