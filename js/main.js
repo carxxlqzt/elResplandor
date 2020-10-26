@@ -75,6 +75,7 @@ class Hero {
 
             ) {
                 this.collide = true;
+
             }
 
         }
@@ -428,8 +429,12 @@ document.addEventListener("keydown", (e) => {
             if (!heroe.collide) {
                 heroe.x += 3;
                 heroe.frameY=0
+                // paredes.forEach(e=>e.color="#b3a659")
             } else {
                 heroe.x -= 15;
+
+                // paredes.forEach(e=>e.color="white")
+
                 heroe.collide = false;
             }
             
@@ -442,3 +447,47 @@ document.addEventListener("keydown", (e) => {
     }
 })
 
+//FUNCIONES DE LOS BOTONES DE MOVIMIENTO
+function moveUp(){
+    if (!heroe.collide) {
+        heroe.y -= 3;
+        heroe.frameY=2
+    } else {
+        heroe.y += 15;
+        heroe.collide = false;
+    } 
+}
+function moveLeft(){
+    if (!heroe.collide) {
+        heroe.x -= 3;
+        heroe.frameY=1
+    } else {
+        heroe.x += 15;
+        heroe.collide = false;
+    }
+}
+function moveRight(){
+    if (!heroe.collide) {
+        heroe.x += 3;
+        heroe.frameY=0
+        paredes.forEach(e=>e.color="#b3a659")
+    } else {
+        heroe.x -= 15;
+
+        paredes.forEach(e=>e.color="white")
+
+        heroe.collide = false;
+    }
+    
+}
+function moveDown(){
+    if (!heroe.collide) {
+        heroe.y += 3;heroe.frameY=3
+    } else {
+        heroe.y -= 15;
+        heroe.collide = false;
+
+    }
+}
+let buttonUp= document.querySelector("#up")
+buttonUp.addEventListener('touchstart',moveUp())

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="estilos/style.css">
     <title>Laberinto</title>
     <style>
        
@@ -12,10 +12,16 @@
     <!-- onload="dibujaCanvas()" -->
 </head>
 <body>
-    <div id="container">
-        <canvas id="canvas"></canvas>
+    <div id="fondo">
+        <div id="container">
+            <canvas id="canvas"></canvas>
+       <div>
+        <button id="up">UP</button>
+        <button onclick="moveLeft()">LEFT</button>
+        <button onclick="moveRight()">RIGHT</button>
+        <button onclick="moveDown()">DOWN</button>
+       </div>
     </div> 
-   
     <script src="js/main.js"></script>
 </body>
 </html>

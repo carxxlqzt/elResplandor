@@ -149,12 +149,13 @@ hexagonoA(0,450)
 fistLine(1,500)
 secondLine(140,560)
 
-
+var imgConverted = document.querySelector('#imgConverted')
 var dataURL = canvas.toDataURL();
 imgConverted.src = dataURL;
 var alfombra = document.querySelector('#alfombra')
 alfombra.style.backgroundColor = "#A03D1D"
 alfombra.width = 1000
+<<<<<<< HEAD
 alfombra.heigth= 595
 
 /* Audio */
@@ -177,3 +178,6 @@ boton.addEventListener("click", function (){
   }
 
 });
+=======
+alfombra.heigth= 595
+>>>>>>> 551cfcba3714d0780355f5f0949bbdf251450ced
