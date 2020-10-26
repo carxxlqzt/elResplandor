@@ -35,14 +35,19 @@ main{
     width: 1000px;
     height: 600px;
     transform:rotateX(45deg) translateZ(-75px) ;
-    bottom: 0px;
+    bottom: -1px;
     border: solid 10px black;
     }
 #canvas, #alfombra{
     transform:rotateX(45deg) translateZ(-70px) ;
     bottom: 0px;
     position:absolute;
-    
+   
+}
+#alfombra{
+    background-color : #A03D1D;
+    width: 1000px;
+    height: 595px;
 }
 
 /* Portada */
