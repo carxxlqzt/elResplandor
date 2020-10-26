@@ -155,29 +155,6 @@ imgConverted.src = dataURL;
 var alfombra = document.querySelector('#alfombra')
 alfombra.style.backgroundColor = "#A03D1D"
 alfombra.width = 1000
-<<<<<<< HEAD
 alfombra.heigth= 595
 
-/* Audio */
 
-var boton = document.getElementById("botonAi");
-var sound2 = document.getElementById ("sound2");
-var v = document.getElementsByTagName ("audio")[0];
-var sound = true;
-
-
-boton.addEventListener("click", function (){
-  if(sound == true){ 
-    v.pause();
-    sound2.src ="https://img.icons8.com/carbon-copy/100/000000/mute.png";
-    sound = false;
-  }else {
-    v.play();
-    sound2.src = "https://img.icons8.com/carbon-copy/100/000000/low-volume.png";
-    sound = true;
-  }
-
-});
-=======
-alfombra.heigth= 595
->>>>>>> 551cfcba3714d0780355f5f0949bbdf251450ced

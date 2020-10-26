@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos/style.css">
+    <link rel="stylesheet" href="estilos/botonaudio.css">
     <title>Laberinto</title>
     <style>
        
@@ -22,6 +23,15 @@
         <button onclick="moveDown()">DOWN</button>
        </div>
     </div> 
+    <div id="botonNv1">
+        <button id="botonAi"><img id="sound2" src ="https://img.icons8.com/carbon-copy/100/000000/low-volume.png"></button>
+    </div>
+
+    <audio autoplay="autoplay" loop="loop">
+        <source src="audio/mapas.mp3" type="audio/mpeg">
+    </audio>
+
     <script src="js/main.js"></script>
+    <script src="js/audio.js"></script>
 </body>
 </html>
