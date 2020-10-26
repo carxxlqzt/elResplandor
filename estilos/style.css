@@ -1,3 +1,16 @@
 canvas{
     background-color: antiquewhite;
 }
+#fondo{
+        position: absolute;
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        display: flex;
+    }
+ #container{
+    position: absolute;
+    align-content: center;
+    top: 20vh;
+}

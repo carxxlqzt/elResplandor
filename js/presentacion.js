@@ -149,11 +149,10 @@ hexagonoA(0,450)
 fistLine(1,500)
 secondLine(140,560)
 
-
+var imgConverted = document.querySelector('#imgConverted')
 var dataURL = canvas.toDataURL();
 imgConverted.src = dataURL;
 var alfombra = document.querySelector('#alfombra')
 alfombra.style.backgroundColor = "#A03D1D"
 alfombra.width = 1000
 alfombra.heigth= 595
-
