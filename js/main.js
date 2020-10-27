@@ -40,8 +40,8 @@ class Hero {
         this.src = personaje;
         this.frameX = 0;
         this.frameY=0
-        this.x = 700;
-        this.y = 100;
+        this.x = 580;
+        this.y = 60;
         this.width = 54;
         this.height = 54;
         this.collide = false;
@@ -81,6 +81,58 @@ class Hero {
         }
     }
 }
+
+class fantasma {
+    constructor (src, x,y,ancho, alto, altoImg, anchoImg){
+        this.src = src;
+        this.frameX = 0;
+        this.frameY=0
+        this.x = x;
+        this.y = y;
+        this.speedX=3;
+        this.speedY=0;
+        this.width = ancho;
+        this.height = alto;
+        this.collide = false;
+        this.anchoImg=anchoImg;
+        this.altoImg=altoImg;
+
+
+        // Métodos.
+        this.draw = function(){
+            ctx.drawImage(this.src, this.frameX * this.anchoImg, this.frameY*this.altoImg, this.anchoImg, this.altoImg, this.x, this.y, this.height, this.width)
+        
+        }
+        this.newPos=function(){ 
+        this.x+=this.speedX
+        this.y+=this.speedY
+        if (this.y==190 && this.x==300) {
+            this.speedY ++
+        }
+
+        if (this.y==300) {
+            this.speedY --
+        }
+            
+        if (this.x >canvas.width-100) {
+            this.speedX--
+        }
+
+        if (this.y< 10 ){
+            this.speedY
+        }
+        }
+
+
+    }
+}
+
+let twins= new Image();
+twins.src="img/twins.png"
+
+// INSTANCIO A LOS FANTASMAS
+
+let gemelas= new fantasma(twins,180,190,70,70,180,101)
 
 // Genero un array vacío y voy pusheando paredes nuevas.
 let paredes = []
@@ -181,6 +233,10 @@ ctx.fillStyle="white"
 ctx.fillStyle="white"
   ctx.fillText("Salida",xCuadradoN3,240)
     heroe.draw()
+    gemelas.draw()
+    gemelas.frameX++
+    gemelas.frameX >= 5 ? gemelas.frameX = 0 : null;
+    gemelas.newPos()
     heroe.frameX++
     heroe.frameX >= 5 ? heroe.frameX = 0 : null;
     

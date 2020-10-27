@@ -40,8 +40,7 @@ class Hero {
         this.y = 10;
         this.width = 64;
         this.height = 64;
-        this.collide = false;
-
+        this.colide = false;
         // Métodos.
         this.draw = function(){
             ctx.drawImage(this.src, this.frame * 142, 0, 142, 198, this.x, this.y, this.width, this.height)
@@ -59,15 +58,16 @@ class Hero {
             const wallLeft = wall.x;
             const wallRight = wall.x + wall.width;
             
-
             // Compruebo si los bordes chocan.
             if ( this.left < wallRight &&
                 this.right > wallLeft &&
                 this.top < wallBottom &&
                 this.bottom > wallTop
             ) {
-                this.collide = true;
+                this.colide = true;
             }
+            
+
 
         }
     }
@@ -258,11 +258,11 @@ document.addEventListener("keydown", (e) => {
         case "ArrowUp":
         case "w":
         case "W":
-            if (!heroe.collide) {
-                heroe.y -= 3;
-            } else {
-                heroe.y += 15;
-                heroe.collide = false;
+         if (!heroe.colide) {
+            heroe.y -= 3;
+        } else {
+            heroe.y += 15;
+            heroe.colide = false;
             }
             
             break;
@@ -271,11 +271,12 @@ document.addEventListener("keydown", (e) => {
         case "ArrowDown":
         case "s":
         case "S":
-            if (!heroe.collide) {
+        // COLIDE 4
+            if (!heroe.colide) {
                 heroe.y += 3;
             } else {
                 heroe.y -= 15;
-                heroe.collide = false;
+                heroe.colide = false;
 
             }
             break;
@@ -285,11 +286,12 @@ document.addEventListener("keydown", (e) => {
         case "ArrowLeft":
         case "a":
         case "A":
-            if (!heroe.collide) {
+        // COLIDE 
+            if (!heroe.colide) {
                 heroe.x -= 3;
             } else {
                 heroe.x += 15;
-                heroe.collide = false;
+                heroe.colide = false;
             }
             break;
 
@@ -297,11 +299,12 @@ document.addEventListener("keydown", (e) => {
         case "ArrowRight":
         case "d":
         case "D":
-            if (!heroe.collide) {
+        // COLIDE 2
+            if (!heroe.colide) {
                 heroe.x += 3;
             } else {
                 heroe.x -= 15;
-                heroe.collide = false;
+                heroe.colide = false;
             }
             
               
