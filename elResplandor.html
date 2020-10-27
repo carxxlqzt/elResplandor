@@ -4,38 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos/main.css">
+    <link rel="stylesheet" href="estilos/botonaudio.css">
+    
     <title>El Resplandor</title>
 </head>
 <body>
     <main>
         <div id="intro" class="slide">
-            <canvas id=canvas width="1000" height="600"></canvas>
+            <canvas id=canvas width="1000" height="595"></canvas>
             <div id=sombra ></div>
             <h1>UNA VEZ ESTUVE EN EL</h1>
             <h2>HOTEL <br> OVERLOOK</h2>
-            <button><a href="#historia">START</a></button>
+            <button id="botonHistoria"><a href="#historia">START</a></button>
+            <button id="botonAi"><img id="sound2" src ="https://img.icons8.com/carbon-copy/100/000000/low-volume.png"></button>
         </div>
-        <div id="historia" class="slide">
+        <div id="hisoria" class="slide">
             <div id="alfombra"> 
-                <img src="" alt="alfombra" id="imgConverted">
-             </div>
-             <div id="sombra"></div>
-            <div>
-                <section class="parrafo">
-                    <div class="historiaParrafo">
-                        <p>Cuando la familia Torrance se muda al Hotel Overlook, sucesos paranormales comienzan a amenazar a la familia, especialmente al padre, Jack, quien llega al borde de la locura.</p>
-                    <p>Su esposa Wendy, asustada por el comportamiento extraño de su esposo, decide escapar en la noche junto a su hijo Danny.</p>
-                    <p>Su camino para salir del hotel no será tan sencillo...</p>
-                    <p>El Hotel Overlook no dejará escapar tan fácilmente a esta familia</p>
-                    <p>Jack ha separado y encerrado a Wendy junto a Danny, él y los demás espectros del hotel los están observando</p>
-                    <p>Tenemos la oportunidad de ayudarlos a escapar de un horrible destino</p>
-                    <p>Recolecta las llaves.</p>
-                    <p>¡Escapa del hotel!</p>
-                    <p>Y bajo ninguna circunstancia dejes que te encuentren...</p>
-                    <p>¡Suerte!</p>
-                    </div>      
-                </section>
+                <img src="" alt="alfombra" class="imgConverted">
             </div>
+            <div id="sombra"></div>
+            <section class="parrafo">
+                <div class="historiaParrafo animated-text">
+                    <p class="line">Cuando la familia Torrance se muda al Hotel Overlook, sucesos paranormales comienzan a amenazarlos, especialmente al padre, Jack, quien llega al borde de la locura.</p>
+                    <p class="line">Su esposa Wendy, asustada por el comportamiento extraño de su esposo, decide escapar en la noche junto a su hijo Danny.</p>
+                    <p class="line">Pero su camino para salir del hotel no será tan sencillo...</p></p>
+                    <p class="line">El Hotel Overlook no dejará escapar tan fácilmente a esta familia. Jack ha separado y encerrado a Wendy junto a Danny. Él y los demás espectros del hotel los están observando.</p>
+                    <p class="line">Tenemos la oportunidad de ayudarlos a escapar de un horrible destino</p>
+                    <p class="line">Recolecta las llaves, ¡escapa del hotel! </p>
+                    <p class="line">Y bajo ninguna circunstancia dejes que te encuentren...</p>
+                    <p class="line">¡Suerte!</p>
+                </div>      
+            </section>
             <button><a href="#menu">CONTINUAR</a></button>
         </div>
 
@@ -66,7 +65,17 @@
             <button><a href="#menu">Cambia el personaje</a></button>
             <button><a href="index.html">PLAY</a></button>
         </div>
+
+        <!-- Audio -->
+        
+
+
+        <audio autoplay="autoplay" loop="loop">
+            <source src="audio/elresplandorinicio.mp3" type="audio/mpeg">
+        </audio>
     </main>
     <script src="js/presentacion.js"></script>
+    <script src="js/audio.js"></script>
+    
 </body>
 </html>

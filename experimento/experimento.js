@@ -40,10 +40,14 @@ class Hero {
         this.y = 10;
         this.width = 64;
         this.height = 64;
+<<<<<<< HEAD
         this.speedX = 0;
         this.speedY = 0;
         // this.collide = false;
 
+=======
+        this.colide = false;
+>>>>>>> 1d5a6f903bc5922e4af28a7419eafb94f8d64939
         // Métodos.
         this.hitBorders = function(wall) {
             const wallTop = wall.y + wall.height;
@@ -76,6 +80,7 @@ class Hero {
         //     const wallLeft = wall.x;
         //     const wallRight = wall.x + wall.width;
             
+<<<<<<< HEAD
 
         //     // Compruebo si los bordes chocan.
         //     if ( this.left < wallRight &&
@@ -85,6 +90,18 @@ class Hero {
         //     ) {
         //         this.collide = true;
         //     }
+=======
+            // Compruebo si los bordes chocan.
+            if ( this.left < wallRight &&
+                this.right > wallLeft &&
+                this.top < wallBottom &&
+                this.bottom > wallTop
+            ) {
+                this.colide = true;
+            }
+            
+
+>>>>>>> 1d5a6f903bc5922e4af28a7419eafb94f8d64939
 
         // }
     }
@@ -277,6 +294,7 @@ document.addEventListener("keydown", (e) => {
         case "ArrowUp":
         case "w":
         case "W":
+<<<<<<< HEAD
             // if (!heroe.collide) {
             //     heroe.y -= 3;
             // } else {
@@ -284,6 +302,14 @@ document.addEventListener("keydown", (e) => {
             //     heroe.collide = false;
             // }
             heroe.speedY-=3
+=======
+         if (!heroe.colide) {
+            heroe.y -= 3;
+        } else {
+            heroe.y += 15;
+            heroe.colide = false;
+            }
+>>>>>>> 1d5a6f903bc5922e4af28a7419eafb94f8d64939
             
             break;
 
@@ -291,6 +317,7 @@ document.addEventListener("keydown", (e) => {
         case "ArrowDown":
         case "s":
         case "S":
+<<<<<<< HEAD
             // if (!heroe.collide) {
             //     heroe.y += 3;
             // } else {
@@ -299,6 +326,16 @@ document.addEventListener("keydown", (e) => {
 
             // }
             heroe.speedY += 2
+=======
+        // COLIDE 4
+            if (!heroe.colide) {
+                heroe.y += 3;
+            } else {
+                heroe.y -= 15;
+                heroe.colide = false;
+
+            }
+>>>>>>> 1d5a6f903bc5922e4af28a7419eafb94f8d64939
             break;
 
 
@@ -306,6 +343,7 @@ document.addEventListener("keydown", (e) => {
         case "ArrowLeft":
         case "a":
         case "A":
+<<<<<<< HEAD
             // if (!heroe.collide) {
             //     heroe.x -= 3;
             // } else {
@@ -313,18 +351,37 @@ document.addEventListener("keydown", (e) => {
             //     heroe.collide = false;
             // }
            heroe.speedX -= 2
+=======
+        // COLIDE 
+            if (!heroe.colide) {
+                heroe.x -= 3;
+            } else {
+                heroe.x += 15;
+                heroe.colide = false;
+            }
+>>>>>>> 1d5a6f903bc5922e4af28a7419eafb94f8d64939
             break;
 
         // Derecha
         case "ArrowRight":
         case "d":
         case "D":
+<<<<<<< HEAD
             // if (!heroe.collide) {
             //     heroe.x += 3;
             // } else {
             //     heroe.x -= 15;
             //     heroe.collide = false;
             // }
+=======
+        // COLIDE 2
+            if (!heroe.colide) {
+                heroe.x += 3;
+            } else {
+                heroe.x -= 15;
+                heroe.colide = false;
+            }
+>>>>>>> 1d5a6f903bc5922e4af28a7419eafb94f8d64939
             
             heroe.speedX += 2
     

@@ -149,11 +149,14 @@ hexagonoA(0,450)
 fistLine(1,500)
 secondLine(140,560)
 
+function pegar(){
+  var imgConverted = document.querySelectorAll('.imgConverted')
+  for (var i = 0; i < imgConverted.length; i++){
+  var dataURL = canvas.toDataURL();
+  imgConverted[i].src = dataURL;
+  }
+}
+ pegar()  
 
-var dataURL = canvas.toDataURL();
-imgConverted.src = dataURL;
-var alfombra = document.querySelector('#alfombra')
-alfombra.style.backgroundColor = "#A03D1D"
-alfombra.width = 1000
-alfombra.heigth= 595
+
 

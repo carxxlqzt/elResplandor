@@ -39,4 +39,3 @@ function madera(x){
 horizontal (50)
 madera(50)
 madera2 (50)
-
