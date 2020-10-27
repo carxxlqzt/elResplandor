@@ -7,20 +7,34 @@
     <link rel="stylesheet" href="estilos/botonaudio.css">
     <title>Laberinto</title>
     <style>
-       
+       body{
+           margin:0
+       }
+       #container{
+           position: relative;
+       }
+       #on{
+           width: 25%;
+           height:20% ;
+           position: absolute;
+           top: 35%;
+           left:35%
 
+       }
     </style>
     <!-- onload="dibujaCanvas()" -->
 </head>
 <body>
+    
     <div id="fondo">
         <div id="container">
             <canvas id="canvas"></canvas>
-       <div>
-        <button id="up">UP</button>
-        <button onclick="moveLeft()">LEFT</button>
-        <button onclick="moveRight()">RIGHT</button>
-        <button onclick="moveDown()">DOWN</button>
+       <div id="cont">
+        <button id="on" onclick="on()">COMENZAR</button> 
+ 
+        <button onclick="stop()">PAUSE</button> 
+         <button  onclick="on()">CONTINUAR</button>
+        <button onclick="location.reload()">VOLVER A EMPEZAR</button>
        </div>
     </div> 
     <div id="botonNv1">
@@ -30,8 +44,9 @@
     <audio autoplay="autoplay" loop="loop">
         <source src="audio/mapas.mp3" type="audio/mpeg">
     </audio>
-
+    </div>
     <script src="js/main.js"></script>
+    <script src="js/functions.js"></script>
     <script src="js/audio.js"></script>
 </body>
 </html>

@@ -1,4 +1,6 @@
-
+// Variables para eliminar el boton comenzar ni bien comience el juego
+let buttonOn=document.querySelector("#on")
+let container=document.querySelector("#cont")
 let canvas = document.querySelector("canvas")
 let ctx = canvas.getContext("2d")
 canvas.width =1010
@@ -15,7 +17,36 @@ let op2=canvas.height/5
 let anchoPared= op1+10
 let altoPared=op2-22
 let grosorPared=5
-// Agregué el parámetro "color" para debuggear mejor cuál pared estaba tocando. Pueden sacarlo.
+//Variables de estilo
+let colorDeFondo="#453635"
+//Variables auxiliares que nos permiten pasar de un nivel a otro
+
+let aux=0
+let aux2=0
+let aux3=0
+let aux4=0
+let aux5=0
+//Variables del TIEMPO Y LA PUNTUACION
+let time=0
+let score=0
+let interval
+//Estas son las coordenadas de los elementos que nos permitiran pasar de un nivel a otro
+let widthPasillo1=anchoLaberinto
+let xPasillo=canvas.width+20
+let xCuadradoN2=((canvas.width*3)-100)
+let xPasilloN3=((canvas.width*4)-100)
+let xCuadradoN3=((canvas.width*5)-100)
+let seg=0
+// Crear las imágenes
+let dani = new Image()
+dani.src = "img/daniel.png"
+let llave =new Image()
+llave.src="img/llave.png"
+let heart =new Image()
+heart.src="img/heart.png"
+
+
+//CONSTRUCTORES
 function Rectangulo(positionX, positionY, ancho, alto, color,vertical) {
     this.x = positionX+xLab;
     this.y = positionY+yLab;
@@ -29,19 +60,25 @@ function Rectangulo(positionX, positionY, ancho, alto, color,vertical) {
         ctx.fillRect(this.x, this.y, this.width, this.height)
     }
 }
-// Llamar a la imagen del personaje
-let dani = new Image()
-dani.src = "img/daniel.png"
+//Para dibujar las imagenes de los elementos
+function Element (imagen,recorteX,recorteY,positionX, positionY, ancho, alto){
+    this.x = positionX+xLab;
+    this.y = positionY+yLab;
+    this.width = ancho;
+    this.height = alto;
 
-// Convertí al héroe en una clase para poder darle métodos.
+    this.draw=function(){
+        ctx.drawImage(imagen,0,0,recorteX,recorteY,this.x,this.y,this.width,this.height)
+    }}
+// Personaje
 class Hero {
     constructor(personaje,widthImage,heightImage) {
         // Propiedades.
         this.src = personaje;
         this.frameX = 0;
         this.frameY=0
-        this.x = 700;
-        this.y = 100;
+        this.x = 580;
+        this.y = 60;
         this.width = 54;
         this.height = 54;
         this.collide = false;
@@ -53,7 +90,7 @@ class Hero {
         this.draw = function(){
             ctx.drawImage(this.src, this.frameX * this.widthImage, this.frameY*this.heightImage, this.widthImage, this.heightImage, this.x, this.y, this.width, this.height)
         }
-        this.checkCollision = function (wall) {
+        this.checkCollision = function (wall,array) {
             // Defino los bordes del héroe.
             this.top = this.y;
             this.bottom = this.y + this.height;
@@ -75,12 +112,79 @@ class Hero {
 
             ) {
                 this.collide = true;
-
+                //Pregunto si el elemento que se usa como parametro es llave1 o heart1
+                if(wall==(llave1 || heart1)){
+                this.getDoorKey=true
+                } else{
+                    this.getDoorKey=false
+                }
             }
 
         }
     }
 }
+ class TextoLaberinto{
+     constructor(color,text,x,y,font){
+         this.draw=function(){
+             ctx.fillStyle=color
+              ctx.font= font
+             ctx.fillText(text,x,y)
+               
+         }
+     }
+ }
+
+class fantasma {
+    constructor (src, x,y,ancho, alto, altoImg, anchoImg){
+        this.src = src;
+        this.frameX = 0;
+        this.frameY=0
+        this.x = x;
+        this.y = y;
+        this.speedX=3;
+        this.speedY=0;
+        this.width = ancho;
+        this.height = alto;
+        this.collide = false;
+        this.anchoImg=anchoImg;
+        this.altoImg=altoImg;
+
+
+        // Métodos.
+        this.draw = function(){
+            ctx.drawImage(this.src, this.frameX * this.anchoImg, this.frameY*this.altoImg, this.anchoImg, this.altoImg, this.x, this.y, this.height, this.width)
+        
+        }
+        this.newPos=function(){ 
+        this.x+=this.speedX
+        this.y+=this.speedY
+        if (this.y==190 && this.x==300) {
+            this.speedY ++
+        }
+
+        if (this.y==300) {
+            this.speedY --
+        }
+            
+        if (this.x >canvas.width-100) {
+            this.speedX--
+        }
+
+        if (this.y< 10 ){
+            this.speedY
+        }
+        }
+
+
+    }
+}
+
+let twins= new Image();
+twins.src="img/twins.png"
+
+// INSTANCIO A LOS FANTASMAS
+
+let gemelas= new fantasma(twins,180,190,70,70,180,101)
 
 // Genero un array vacío y voy pusheando paredes nuevas.
 let paredes = []
@@ -121,25 +225,17 @@ paredes.push(new Rectangulo(0,0,anchoLaberinto,grosorPared))
 paredes.push(new Rectangulo(anchoLaberinto-5,0,grosorPared,altoPared*2))
 paredes.push(new Rectangulo(0,altoLaberinto-5,anchoLaberinto,grosorPared))
 paredes.push(new Rectangulo(0,0,grosorPared,altoLaberinto))
-// Instancio al héroe.
-let heroe = new Hero(dani,120,190);
-let colorDeFondo="#453635"
-let widthPasillo1=anchoLaberinto
-let xPasillo=canvas.width+20
 
-//Variables auxiliares que nos permiten pasar de un nivel a otro
-let aux=0
-let aux2=0
-let aux3=0
-let aux4=0
-let aux5=0
-//Variables del TIEMPO Y LA PUNTUACION
-let time=0
-let score=0
-//Estas son las coordenadas de los elementos que nos permitiran pasar de un nivel a otro
-let xCuadradoN2=((canvas.width*3)-100)
-let xPasilloN3=((canvas.width*4)-100)
-let xCuadradoN3=((canvas.width*5)-100)
+//Instanciar los elementos
+let heroe = new Hero(dani,120,190);
+let llave1 = new Element(llave,800,375,180,217,50,50)
+let heart1 = new Element(heart,750,680,300,300,50,50)
+let texto1= new TextoLaberinto("red","REDRUM",380,250,"50px Amatic SC")//Instancio el texto del Laberinto
+// ARRAYS DE ELEMENTOS QUE LUEGO PODRIAN SER ELIMINADOS
+let elements=[llave1,heart1]
+let elemLab =[]
+elemLab=[texto1,heroe]
+let laberinto=[elemLab,paredes]
 function dibujoCanvas() {
     //RECTANGULO CANVAS GENERAL
     //color de fondo del canvas
@@ -148,19 +244,30 @@ function dibujoCanvas() {
    ctx.fillRect(0,0,canvas.width,canvas.height)
     time++
    //TIMER
+   //armo los segundos
+   if(time%60==0){
+    seg=seg+1
+   }
+ if(time==60){
+    time=0
+
+}
    ctx.fillStyle="white"
    ctx.font="30px Amatic SC" 
-   ctx.fillText(`TIME:${time}`,50,40 )
-   ctx.fillText(`SCORE:${score}`,canvas.width-200,40 )
+   ctx.fillText(`TIME: ${seg}s   ${time}ms `,50,40 )
+   ctx.fillText(`SCORE: ${score}`,canvas.width-200,40 )
+   
+
    //RECTANGULO DEL LABERINTO
    ctx.fillStyle=colorDeFondo //Del laberinto
     ctx.fillRect(xLab,yLab,anchoLaberinto,altoLaberinto)
-
-     // En cada ciclo: borro todo el canvas, dibujo al héroe, aumento el frame para animarlo y evito que pase del sexto,
-     // ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // ctx.fillStyle= "orange" // nivel 1
+    // ctx.fillRect(anchoLaberinto-80,altoLaberinto-175,100,50)
+    // ctx.fillStyle="white"
+    // ctx.fillText("Salida",anchoLaberinto-80,240)
     ctx.fillStyle="#a70e06"
-    ctx.font="50px Amatic SC" 
-    ctx.fillText("REDRUM",380,250 ) 
+    // ctx.font="50px Amatic SC" 
+    // ctx.fillText("REDRUM",380,250 ) 
    //ELEMENTOS PASAJE A SEGUNDO NIVEL
     ctx.fillStyle="white"
     ctx.font="26px Amatic SC"
@@ -180,20 +287,42 @@ ctx.fillStyle="white"
    ctx.fillRect(xCuadradoN3,220,100,50)
 ctx.fillStyle="white"
   ctx.fillText("Salida",xCuadradoN3,240)
-    heroe.draw()
+    
+    // heroe.draw()
+    elemLab.forEach(e=>{
+       e.draw()
+    })
+    // heroe.draw()
+    gemelas.draw()
+    gemelas.frameX++
+    gemelas.frameX >= 5 ? gemelas.frameX = 0 : null;
+    gemelas.newPos()
     heroe.frameX++
     heroe.frameX >= 5 ? heroe.frameX = 0 : null;
-    
-    
+    elements.forEach(e=>{
+        e.draw()
+        heroe.checkCollision(e) 
+    })
+   
     // luego por cada pared del array, la dibujo y le pregunto al héroe si la chocó.
     paredes.forEach(pared => {
         pared.dibujar()
-        heroe.checkCollision(pared)
-        
-        
+        heroe.checkCollision(pared) 
   
     })
-
+    
+    
+    if(seg==30|| (seg==35&heroe.x+heroe.width<anchoLaberinto)){
+        
+        test2()
+       
+    }
+    if(heroe.getDoorKey){
+       elements=[]
+       score+=1
+    } else{
+        score=0
+    }
     //PASAJE AL SEGUNDO NIVEL (SI SE QUIERE AGREGAR ELEMENTOS DEBE SER HECHO DENTRO DEL SECTOR "ELEMENTOS DE PASAJE A SEGUNDO NIVEL" 
     // TAMBIEN SE DEBE ARRANCAR A DIBUJAR DESDE 50 PARA EL INDICE X  & 50 PARA EL INDICE Y )
  if(heroe.x+heroe.width>anchoLaberinto){
@@ -202,7 +331,8 @@ ctx.fillStyle="white"
 if(aux==1){
  xPasillo=30;
   paredes=[]
- heroe.x=xLab+10
+  elements=[]
+ heroe.x=10+xLab
  aux++
 }
 
@@ -363,10 +493,17 @@ if(heroe.x+heroe.width>xCuadradoN3+50){
       
     }
 }
-// Reitero la función "dibujoCanvas" 8 veces por segundo.
-setInterval(dibujoCanvas, 1000 / 15)
+// Reitero la función "dibujoCanvas" 60 veces por segundo
+function on(){
+  interval= setInterval(dibujoCanvas, 10)
+  container.removeChild(buttonOn)
 
- 
+}
+
+ function stop(){
+    clearInterval(interval)
+ }
+
 // En todo el documento escucho los eventos de teclado.
 document.addEventListener("keydown", (e) => {
     
@@ -489,6 +626,6 @@ function moveDown(){
 
     }
 }
-let buttonUp= document.querySelector("#up")
-buttonUp.addEventListener('touchstart',moveUp())
+// let buttonUp= document.querySelector("#up")
+// buttonUp.addEventListener('touchstart',moveUp())
 
