@@ -27,6 +27,18 @@ main{
     background-color: black;
 }
 
+button{
+    z-index: 10;
+}
+
+a{
+    z-index: 10;
+}
+
+img{
+    z-index: 10;
+}
+
 /* Alfombra canvas */
 #sombra{
     box-shadow: 20px -50px 170px 170px rgba(0,0,0,0.99) inset;
@@ -156,23 +168,41 @@ section{
   }
   
   .line:first-child{
-    animation: text-slider 60s infinite;
+    animation: text-slider 30s infinite;
   }
   
-  @keyframes text-slider {
+
+  
+
+/*animaciones*/
+@keyframes onOff{
+    0%{
+        opacity: 0;
+    }
+
+    20%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes text-slider {
     0%{
       margin-top: 0;
     }
-    10%{
+    30%{
       margin-top: -60px;
     }
-    20%{
+    35%{
       margin-top: -120px;
     }
-    30%{
+    40%{
       margin-top: -180px;
     }
-    40%{
+    45%{
       margin-top: -240px;
     }
     50%{
@@ -194,20 +224,3 @@ section{
         margin-top: -600px;
     }
   }
-  
-
-/*animaciones*/
-@keyframes onOff{
-    0%{
-        opacity: 0;
-    }
-
-    20%{
-        opacity: 1;
-    }
-
-    100%{
-        opacity: 0;
-    }
-}
-
