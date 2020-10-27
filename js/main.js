@@ -118,6 +118,11 @@ class Hero {
                 } else{
                     this.getDoorKey=false
                 }
+
+                if(wall == gemelas){
+                    this.collide = true;
+                    grito.play()
+                }
             }
 
         }
@@ -311,7 +316,9 @@ ctx.fillStyle="white"
   
     })
     
-    
+    // Compruebo colision con fantasma
+    heroe.checkCollision(gemelas)
+
     if(seg==30|| (seg==35&heroe.x+heroe.width<anchoLaberinto)){
         
         test2()
