@@ -52,22 +52,42 @@ button a{
     display: flex;
     align-items: center;
     align-content: center;
-}
-
-.Personajes div{
+} 
+ .Personajes div{
     margin: 0 50px 0 50px;
-}
+} 
 
 
 a{
     z-index: 10;
 }
 
-img{
-    z-index: 10;
+
+#daniel{
+position:absolute;
+width: 120px;
+height: 190px;
+background:url("../img/daniel.png") ;
+animation: walk 450ms steps(5) infinite;
+bottom: 20vh;
 }
+#mom{
+    position:absolute;
+    width: 120px;
+    height: 190px;
+    background:url("../img/mom.png") ;
+    animation: walk 450ms steps(5) infinite;
+    bottom: 20vh;
+    }
 
-
+@keyframes walk{
+    0% {
+        background-position-x:0 
+    }
+    100% {
+         background-position-x: -600px  
+          }
+} 
 /* Alfombra canvas */
 #sombra{
     box-shadow: 20px -50px 170px 170px rgba(0,0,0,0.99) inset;
