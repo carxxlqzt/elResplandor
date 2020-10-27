@@ -40,36 +40,53 @@ class Hero {
         this.y = 10;
         this.width = 64;
         this.height = 64;
-        this.collide = false;
+        this.speedX = 0;
+        this.speedY = 0;
+        // this.collide = false;
 
         // Métodos.
+        this.hitBorders = function(wall) {
+            const wallTop = wall.y + wall.height;
+            const wallBottom = wall.y - this.height;
+            const wallRight = wall.x - this.width;
+            const wallLeft = wall.x + wall.width;
+            this.y > wallBottom ? (this.y = wallBottom, this.speedY = 0) : null;
+            this.y < wallTop ? (this.y = wallTop, this.speedY = 0) : null;
+            this.x > wallRight ? (this.x = wallRight, this.speedX = 0) : null;
+            this.x < wallLeft ? (this.x = 0, this.speedX = 0) : null;
+          }
+          this.newPos = function() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.hitBorders();
+          }
         this.draw = function(){
             ctx.drawImage(this.src, this.frame * 142, 0, 142, 198, this.x, this.y, this.width, this.height)
         }
-        this.checkCollision = function (wall) {
-            // Defino los bordes del héroe.
-            this.top = this.y;
-            this.bottom = this.y + this.height;
-            this.left = this.x;
-            this.right = this.x + this.width;
+        // this.checkCollision = function (wall) {
+        //     // Defino los bordes del héroe.
+        //     this.top = this.y;
+        //     this.bottom = this.y + this.height;
+        //     this.left = this.x;
+        //     this.right = this.x + this.width;
 
-            // Defino los bordes de la pared.
-            const wallTop = wall.y;
-            const wallBottom = wall.y + wall.height;
-            const wallLeft = wall.x;
-            const wallRight = wall.x + wall.width;
+        //     // Defino los bordes de la pared.
+        //     const wallTop = wall.y;
+        //     const wallBottom = wall.y + wall.height;
+        //     const wallLeft = wall.x;
+        //     const wallRight = wall.x + wall.width;
             
 
-            // Compruebo si los bordes chocan.
-            if ( this.left < wallRight &&
-                this.right > wallLeft &&
-                this.top < wallBottom &&
-                this.bottom > wallTop
-            ) {
-                this.collide = true;
-            }
+        //     // Compruebo si los bordes chocan.
+        //     if ( this.left < wallRight &&
+        //         this.right > wallLeft &&
+        //         this.top < wallBottom &&
+        //         this.bottom > wallTop
+        //     ) {
+        //         this.collide = true;
+        //     }
 
-        }
+        // }
     }
 }
 // Genero un array vacío y voy pusheando paredes nuevas.
@@ -137,20 +154,22 @@ function dibujoCanvas() {
   ctx.fillText("RUN RUN!! --> (acá podriamos poner fantasmitas que quieran atrapar al niño) ",xPasillo,100)
     ctx.fillStyle="red"
     ctx.fillRect(xPasillo,180,anchoP,200)
-    
-ctx.fillRect(xCuadradoBlanco,200,100,100)
    
-    heroe.draw()
+   
+ctx.fillRect(xCuadradoBlanco,200,100,100)
+   paredes.forEach(pared => {
+       
+        heroe.hitBorders(pared)
+        pared.dibujar()
+    }) 
+
+     heroe.draw() 
     heroe.frame++
     heroe.frame >= 6 ? heroe.frame = 0 : null;
-    
+     heroe.newPos()
     
     // luego por cada pared del array, la dibujo y le pregunto al héroe si la chocó.
-    paredes.forEach(pared => {
-        pared.dibujar()
-        heroe.checkCollision(pared)
-  
-    })
+    
     
     
  if(heroe.x+heroe.width>canvas.width){
@@ -258,12 +277,13 @@ document.addEventListener("keydown", (e) => {
         case "ArrowUp":
         case "w":
         case "W":
-            if (!heroe.collide) {
-                heroe.y -= 3;
-            } else {
-                heroe.y += 15;
-                heroe.collide = false;
-            }
+            // if (!heroe.collide) {
+            //     heroe.y -= 3;
+            // } else {
+            //     heroe.y += 15;
+            //     heroe.collide = false;
+            // }
+            heroe.speedY-=3
             
             break;
 
@@ -271,13 +291,14 @@ document.addEventListener("keydown", (e) => {
         case "ArrowDown":
         case "s":
         case "S":
-            if (!heroe.collide) {
-                heroe.y += 3;
-            } else {
-                heroe.y -= 15;
-                heroe.collide = false;
+            // if (!heroe.collide) {
+            //     heroe.y += 3;
+            // } else {
+            //     heroe.y -= 15;
+            //     heroe.collide = false;
 
-            }
+            // }
+            heroe.speedY += 2
             break;
 
 
@@ -285,26 +306,27 @@ document.addEventListener("keydown", (e) => {
         case "ArrowLeft":
         case "a":
         case "A":
-            if (!heroe.collide) {
-                heroe.x -= 3;
-            } else {
-                heroe.x += 15;
-                heroe.collide = false;
-            }
+            // if (!heroe.collide) {
+            //     heroe.x -= 3;
+            // } else {
+            //     heroe.x += 15;
+            //     heroe.collide = false;
+            // }
+           heroe.speedX -= 2
             break;
 
         // Derecha
         case "ArrowRight":
         case "d":
         case "D":
-            if (!heroe.collide) {
-                heroe.x += 3;
-            } else {
-                heroe.x -= 15;
-                heroe.collide = false;
-            }
+            // if (!heroe.collide) {
+            //     heroe.x += 3;
+            // } else {
+            //     heroe.x -= 15;
+            //     heroe.collide = false;
+            // }
             
-              
+            heroe.speedX += 2
     
             break;
 

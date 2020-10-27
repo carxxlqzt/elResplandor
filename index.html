@@ -6,19 +6,36 @@
     <link rel="stylesheet" href="styles.css">
     <title>Laberinto</title>
     <style>
-       
+       body{
+           margin:0
+       }
+       #container{
+           position: relative;
+       }
+       #on{
+           width: 25%;
+           height:20% ;
+           position: absolute;
+           top: 35%;
+           left:35%
 
+       }
     </style>
     <!-- onload="dibujaCanvas()" -->
 </head>
 <body>
     <div id="container">
         <canvas id="canvas"></canvas>
-    </div> 
-   <button id="up">UP</button>
-   <button onclick="moveLeft()">LEFT</button>
-   <button onclick="moveRight()">RIGHT</button>
-   <button onclick="moveDown()">DOWN</button>
+    
+   <!-- <button id="up ">UP</button> -->
+    
+   <button id="on" onclick="on()">COMENZAR</button> 
+ 
+   <button onclick="stop()">PAUSE</button> 
+    <button  onclick="on()">CONTINUAR</button>
+   <button onclick="location.reload()">VOLVER A EMPEZAR</button>
     <script src="js/main.js"></script>
+    <script src="js/functions.js"></script>
+</div> 
 </body>
 </html>
