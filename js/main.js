@@ -164,6 +164,7 @@ class fantasma {
         }
         this.newPos=function(){ 
             this.x+=this.speedX
+<<<<<<< HEAD
             this.y+=this.speedY},
         this.movimiento=function(){
 
@@ -189,6 +190,40 @@ class fantasma {
         this.reset=function(){
             this.x=50;
             this.y=200;
+=======
+            this.y+=this.speedY
+            if (this.y==190 && this.x==300) {
+                this.speedY ++
+            }
+
+            if (this.y==300) {
+                this.speedY --
+            }
+                
+            if (this.x > canvas.width-100) {
+                this.speedX--
+            }
+
+            if (this.y < 10 ){
+                this.speedY
+            }
+        }
+
+        //metodo para mover de lado a lado
+        this.moveToSide = function(cantMov){
+            aux = this.x
+            while(this.x < cantMov){
+                this.x += this.speedX
+                this.frameY = 1
+                this.draw()
+                console.log(this.x)
+            }
+            // if(this.x >= cantMov){
+            //     this.moveToSide(-this.x,-aux)
+            // }
+
+            
+>>>>>>> f28a33ece1816dbd86b40594ac441d27e54618dd
         }
 
     }
