@@ -1,4 +1,3 @@
-/* AUDIO */
 var boton = document.getElementById("botonAi");
 var sound2 = document.getElementById ("sound2");
 var v = document.getElementsByTagName ("audio")[0];
