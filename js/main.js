@@ -523,7 +523,7 @@ document.addEventListener("keydown", (e) => {
         case "w":
         case "W":
             if (!heroe.collide) {
-                heroe.y -= 3;
+                heroe.y -= 50;
                 heroe.frameY=2
             } else {
                 heroe.y += 15;
