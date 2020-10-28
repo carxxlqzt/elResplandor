@@ -119,10 +119,12 @@ class Hero {
                     this.getDoorKey=false
                 }
 
-                if(wall == gemelas){
-                    this.collide = true;
-                    grito.play()
-                }
+                // if(wall == gemelas){
+                //     this.collide = true;
+                //     grito.play()
+                //     stop()
+
+                // }
             }
 
         }
@@ -146,7 +148,7 @@ class fantasma {
         this.frameY=0
         this.x = x;
         this.y = y;
-        this.speedX=3;
+        this.speedX=5;
         this.speedY=0;
         this.width = ancho;
         this.height = alto;
@@ -161,25 +163,33 @@ class fantasma {
         
         }
         this.newPos=function(){ 
-        this.x+=this.speedX
-        this.y+=this.speedY
-        if (this.y==190 && this.x==300) {
-            this.speedY ++
-        }
+            this.x+=this.speedX
+            this.y+=this.speedY},
+        this.movimiento=function(){
 
-        if (this.y==300) {
-            this.speedY --
-        }
-            
-        if (this.x >canvas.width-100) {
-            this.speedX--
-        }
+            if (this.x >canvas.width-100) {
+                this.speedX=-this.speedX;
+            }
 
-        if (this.y< 10 ){
-            this.speedY
-        }
-        }
+            if(this.x<50){
+                this.speedX=0;
+                this.speedY=-3 ;
+            }
 
+            if (this.y<48) {
+                this.speedY =0;
+                this.speedX=3;
+            }
+
+            if (this.x> canvas.width) {
+                this.reset()
+            }
+
+        },
+        this.reset=function(){
+            this.x=50;
+            this.y=200;
+        }
 
     }
 }
@@ -233,8 +243,8 @@ paredes.push(new Rectangulo(0,0,grosorPared,altoLaberinto))
 
 //Instanciar los elementos
 let heroe = new Hero(dani,120,190);
-let llave1 = new Element(llave,800,375,180,217,50,50)
-let heart1 = new Element(heart,750,680,300,300,50,50)
+let llave1 = new Element(llave,800,575,20,30,50,50)
+let heart1 = new Element(heart,1000,1000,410,300,50,50)
 let texto1= new TextoLaberinto("red","REDRUM",380,250,"50px Amatic SC")//Instancio el texto del Laberinto
 // ARRAYS DE ELEMENTOS QUE LUEGO PODRIAN SER ELIMINADOS
 let elements=[llave1,heart1]
@@ -299,9 +309,12 @@ ctx.fillStyle="white"
     })
     // heroe.draw()
     gemelas.draw()
+    // gemelas.moveToSide(500)
     gemelas.frameX++
     gemelas.frameX >= 5 ? gemelas.frameX = 0 : null;
     gemelas.newPos()
+    gemelas.movimiento()
+
     heroe.frameX++
     heroe.frameX >= 5 ? heroe.frameX = 0 : null;
     elements.forEach(e=>{
@@ -313,11 +326,13 @@ ctx.fillStyle="white"
     paredes.forEach(pared => {
         pared.dibujar()
         heroe.checkCollision(pared) 
+
   
     })
     
     // Compruebo colision con fantasma
     heroe.checkCollision(gemelas)
+
 
     if(seg==30|| (seg==35&heroe.x+heroe.width<anchoLaberinto)){
         
@@ -502,7 +517,7 @@ if(heroe.x+heroe.width>xCuadradoN3+50){
 }
 // Reitero la función "dibujoCanvas" 60 veces por segundo
 function on(){
-  interval= setInterval(dibujoCanvas, 10)
+  interval= setInterval(dibujoCanvas, 30)
   container.removeChild(buttonOn)
 
 }
@@ -635,4 +650,3 @@ function moveDown(){
 }
 // let buttonUp= document.querySelector("#up")
 // buttonUp.addEventListener('touchstart',moveUp())
-
