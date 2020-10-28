@@ -36,10 +36,12 @@ button{
     color: whitesmoke;
     font-size: 5vh;
     margin: 20px;
+    text-decoration: none;
 }
 
 button a{
     color: whitesmoke;
+    text-decoration: none;
     
 }
 
@@ -70,7 +72,7 @@ width: 120px;
 height: 190px;
 background:url("../img/daniel.png") ;
 animation: walk 450ms steps(5) infinite;
-bottom: 20vh;
+bottom: 15vh;
 }
 #mom{
     position:absolute;
@@ -78,7 +80,7 @@ bottom: 20vh;
     height: 190px;
     background:url("../img/mom.png") ;
     animation: walk 450ms steps(5) infinite;
-    bottom: 20vh;
+    bottom: 15vh;
     }
 
 @keyframes walk{
@@ -89,6 +91,18 @@ bottom: 20vh;
          background-position-x: -600px  
           }
 } 
+
+.botonesDescripciones{
+    position: absolute;
+    display: flex;
+    bottom: 3px;
+}
+
+.parrafoPersonaje{
+    font-size: 25px;
+    width: 70vw;
+}
+
 /* Alfombra canvas */
 #sombra{
     box-shadow: 20px -50px 170px 170px rgba(0,0,0,0.99) inset;
@@ -140,6 +154,7 @@ p{
     display: flex;
     align-items: center;
     z-index: 5;
+    width: 70vw;
 }
     
 #title{
@@ -147,6 +162,12 @@ p{
     width: 10vh;
     border-color: whitesmoke;
     border-width: 30px;
+}
+
+.boton-play{
+    animation: onOff 1s infinite;
+    font-size: 45px;
+    color: rgb(255, 145, 0);
 }
 
 /*Intro*/
@@ -193,14 +214,7 @@ section{
     justify-content: center;
     align-items: center;}
 
-/* .historiaParrafo{
-    position: sticky;
-    display: inline-block;
-    align-items: center;
-    margin: 10vh;
-    font-size: 20px;
-    margin-top: 50vh;
-} */
+
 
 .animated-text{
     z-index: 5;
@@ -274,3 +288,4 @@ section{
         margin-top: -600px;
     }
   }
+
