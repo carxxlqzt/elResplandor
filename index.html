@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="estilos/style.css">
-    <link rel="stylesheet" href="estilos/botonaudio.css">
+    <link rel="stylesheet" href="estilos/botonaudio.css"> -->
     <title>Laberinto</title>
     <style>
        body{
@@ -21,20 +22,26 @@
            left:35%
 
        }
+       #reload{
+           display:none;
+           width: 25%;
+           height:20% ;
+           position: absolute;
+           top: 35%;
+           left:35%
+       }
     </style>
     <!-- onload="dibujaCanvas()" -->
 </head>
 <body>
-    
     <div id="fondo">
         <div id="container">
             <canvas id="canvas"></canvas>
        <div id="cont">
         <button id="on" onclick="on()">COMENZAR</button> 
  
-        <button onclick="stop()">PAUSE</button> 
-         <button  onclick="on()">CONTINUAR</button>
-        <button onclick="location.reload()">VOLVER A EMPEZAR</button>
+        
+        <button id="reload" onclick="location.reload()">VOLVER A EMPEZAR</button>
        </div>
     </div> 
     <div id="botonNv1">

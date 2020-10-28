@@ -4,7 +4,7 @@
 //Tambien le añadi los botones de pausa, continuacion y de volver a empezar el juego
 //Intente crear la funcion de la eliminacion de los objetos que le daran puntos al jugador, funciona muy a medias
 //falta mejorar el tema del diseño
-
+let reload= document.getElementById("reload")
 function test2(){
      
     // time=0
@@ -12,3 +12,6 @@ function test2(){
     stop()
     
 }
+
+
+
