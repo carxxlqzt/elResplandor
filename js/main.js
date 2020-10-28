@@ -118,6 +118,11 @@ class Hero {
                 } else{
                     this.getDoorKey=false
                 }
+
+                if(wall == gemelas){
+                    this.collide = true;
+                    grito.play()
+                }
             }
 
         }
@@ -156,25 +161,40 @@ class fantasma {
         
         }
         this.newPos=function(){ 
-        this.x+=this.speedX
-        this.y+=this.speedY
-        if (this.y==190 && this.x==300) {
-            this.speedY ++
+            this.x+=this.speedX
+            this.y+=this.speedY
+            if (this.y==190 && this.x==300) {
+                this.speedY ++
+            }
+
+            if (this.y==300) {
+                this.speedY --
+            }
+                
+            if (this.x > canvas.width-100) {
+                this.speedX--
+            }
+
+            if (this.y < 10 ){
+                this.speedY
+            }
         }
 
-        if (this.y==300) {
-            this.speedY --
-        }
+        //metodo para mover de lado a lado
+        this.moveToSide = function(cantMov){
+            aux = this.x
+            while(this.x < cantMov){
+                this.x += this.speedX
+                this.frameY = 1
+                this.draw()
+                console.log(this.x)
+            }
+            // if(this.x >= cantMov){
+            //     this.moveToSide(-this.x,-aux)
+            // }
+
             
-        if (this.x >canvas.width-100) {
-            this.speedX--
         }
-
-        if (this.y< 10 ){
-            this.speedY
-        }
-        }
-
 
     }
 }
@@ -294,6 +314,7 @@ ctx.fillStyle="white"
     })
     // heroe.draw()
     gemelas.draw()
+    // gemelas.moveToSide(500)
     gemelas.frameX++
     gemelas.frameX >= 5 ? gemelas.frameX = 0 : null;
     gemelas.newPos()
@@ -311,7 +332,9 @@ ctx.fillStyle="white"
   
     })
     
-    
+    // Compruebo colision con fantasma
+    heroe.checkCollision(gemelas)
+
     if(seg==30|| (seg==35&heroe.x+heroe.width<anchoLaberinto)){
         
         test2()

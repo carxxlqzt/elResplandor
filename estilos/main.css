@@ -1,3 +1,4 @@
+
 /*GENERAL*/
 html {
     margin: 0;
@@ -27,6 +28,66 @@ main{
     background-color: black;
 }
 
+button{
+    z-index: 10;
+    bottom: 50px;
+    border: solid 2px whitesmoke;
+    background: transparent;
+    color: whitesmoke;
+    font-size: 5vh;
+    margin: 20px;
+}
+
+button a{
+    color: whitesmoke;
+    
+}
+
+/*PERSONAJES*/
+
+.Personajes{
+    z-index: 100;
+    width: 50vw;
+    margin: 300px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+} 
+ .Personajes div{
+    margin: 0 50px 0 50px;
+} 
+
+
+a{
+    z-index: 10;
+}
+
+
+#daniel{
+position:absolute;
+width: 120px;
+height: 190px;
+background:url("../img/daniel.png") ;
+animation: walk 450ms steps(5) infinite;
+bottom: 20vh;
+}
+#mom{
+    position:absolute;
+    width: 120px;
+    height: 190px;
+    background:url("../img/mom.png") ;
+    animation: walk 450ms steps(5) infinite;
+    bottom: 20vh;
+    }
+
+@keyframes walk{
+    0% {
+        background-position-x:0 
+    }
+    100% {
+         background-position-x: -600px  
+          }
+} 
 /* Alfombra canvas */
 #sombra{
     box-shadow: 20px -50px 170px 170px rgba(0,0,0,0.99) inset;
@@ -156,23 +217,41 @@ section{
   }
   
   .line:first-child{
-    animation: text-slider 60s infinite;
+    animation: text-slider 30s infinite;
   }
   
-  @keyframes text-slider {
+
+  
+
+/*animaciones*/
+@keyframes onOff{
+    0%{
+        opacity: 0;
+    }
+
+    20%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes text-slider {
     0%{
       margin-top: 0;
     }
-    10%{
+    30%{
       margin-top: -60px;
     }
-    20%{
+    35%{
       margin-top: -120px;
     }
-    30%{
+    40%{
       margin-top: -180px;
     }
-    40%{
+    45%{
       margin-top: -240px;
     }
     50%{
@@ -194,20 +273,3 @@ section{
         margin-top: -600px;
     }
   }
-  
-
-/*animaciones*/
-@keyframes onOff{
-    0%{
-        opacity: 0;
-    }
-
-    20%{
-        opacity: 1;
-    }
-
-    100%{
-        opacity: 0;
-    }
-}
-
